@@ -49,9 +49,13 @@ public class wrmhl {
 	}
 
 	// connect the device and unity
-	public void connect(){
-		deviceReader.openFlow(); // Open the Serial Port data flow.
+	public bool connect(){
+        if (!deviceReader.openFlow())
+        {
+            return false;
+        }
 		deviceReader.startThread(); // Start the thread.
+        return true;
 	}
 
 	// Close the connection beetwen your device and Unity:
@@ -68,5 +72,5 @@ public class wrmhl {
 
 	public void send(string dataToSend){
 		deviceReader.writeThread(dataToSend); // call the Thread write method.
-}
+    }
 }

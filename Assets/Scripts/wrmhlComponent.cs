@@ -19,18 +19,20 @@ public class wrmhlComponent
     [Tooltip("QueueLenght")]
     public int queueLenght = 1;
 
+    bool successfullyConnected = false;
+
     //use this to use the default COM4 and 9600
     public wrmhlComponent()
     {
         Device.set(portName, baudRate, readTimeout, queueLenght); // This method set the communication with the following vars;
                                                                   //                              Serial Port, Baud Rates, Read Timeout and QueueLenght.
-        Device.connect(); // This method open the Serial communication with the vars previously given.
+        successfullyConnected = Device.connect(); // This method open the Serial communication with the vars previously given.
     }
     public wrmhlComponent(string PortName, int BaudRate, int ReadTimeout, int QueueLenght)
     {
         Device.set(PortName, BaudRate, ReadTimeout, QueueLenght); // This method set the communication with the following vars;
                                                                   //                              Serial Port, Baud Rates, Read Timeout and QueueLenght.
-        Device.connect(); // This method open the Serial communication with the vars previously given.
+        successfullyConnected = Device.connect(); // This method open the Serial communication with the vars previously given.
     }
     ~wrmhlComponent()
     {
@@ -43,5 +45,9 @@ public class wrmhlComponent
     public void Write(string dataToSend)
     {
         Device.send(dataToSend);
+    }
+    public bool IsConnected()
+    {
+        return successfullyConnected;
     }
 }

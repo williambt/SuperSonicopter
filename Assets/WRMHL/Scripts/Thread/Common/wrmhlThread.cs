@@ -68,10 +68,20 @@ public abstract class wrmhlThread { // wrmhlThread is the common Thread for rece
 		WRMHLthread.Start ();
 	}
 
-	public void openFlow() { // Open the SerialPort with the vars given by wrmhl.
+	public bool openFlow() { // Open the SerialPort with the vars given by wrmhl.
 		deviceSerial = new SerialPort(this.portName, this.baudRate); // define the SerialPort.
 		deviceSerial.ReadTimeout = this.readTimeout; // set the readTimeout.
-		deviceSerial.Open(); // Start the data Flow.
+
+        try
+        {
+		    deviceSerial.Open(); // Start the data Flow.
+        }
+        catch (System.Exception e)
+        {
+
+            return false;
+        }
+        return true;
 	}
 
 	public bool looping = true;

@@ -43,4 +43,5 @@ public class wrmhlThread_Lines : wrmhlThread { // wrmhlThread_ReadLines is deriv
 	public override void SendProtocol(object message) { // This is the only one writing protocol for 0.1 Alpha. This is a basique SerialPort WriteLine() method.
 		deviceSerial.WriteLine((string) message);
 	}
+    
 }
