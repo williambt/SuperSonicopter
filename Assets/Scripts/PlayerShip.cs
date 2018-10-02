@@ -108,7 +108,7 @@ public class PlayerShip : MonoBehaviour
 		source.clip = explosion;
 		source.loop = false;
 		GetComponent<SpriteRenderer> ().sprite = dead;
-
+        GetComponent<Animator>().SetBool("Alive", false);
 		GetComponent<Collider2D> ().enabled = false;
 		source.Play ();
 	}
