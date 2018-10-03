@@ -14,9 +14,6 @@ public class PlayerShip : MonoBehaviour
     public float displacementSpeed = 10;
     public float sensitivity = 3;
     [Space(10)]
-    float yStart;
-    public float offset = 1f;
-    wrmhlComponent device;
 
     [Header("Arduino Settings")]
     public string portName = "COM3";
@@ -24,14 +21,25 @@ public class PlayerShip : MonoBehaviour
     public int readTimeout = 20;
     public int queueLength = 1;
 
-    float lastPos = 0;
+    [HideInInspector]
+    public float yStart;
+    [HideInInspector]
+    public float offset = 1f;
+    [HideInInspector]
+    public wrmhlComponent device;
 
-    float lerpStartY = 0;
-    float lerpTargetY = 0;
-    float lerpT = 0.0f;
-
-    bool keyboardMode = false;
-
+    [HideInInspector]
+    public float lastPos = 0;
+    [HideInInspector]
+    public float lerpStartY = 0;
+    [HideInInspector]
+    public float lerpTargetY = 0;
+    [HideInInspector]
+    public float lerpT = 0.0f;
+    [HideInInspector]
+    public bool keyboardMode = false;
+    [HideInInspector]
+    public StateMachine<PlayerShip> stateMachine;
 	// Use this for initialization
 	void Start ()
     {
@@ -39,70 +47,48 @@ public class PlayerShip : MonoBehaviour
         device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
 		source = gameObject.AddComponent<AudioSource> ();
         keyboardMode = !device.IsConnected();
+
+
+        // inicialização da state machine
+        stateMachine = new StateMachine<PlayerShip>(this);
+        // 1 - criar estados
+        PlayerStates.SPlayerBegin<PlayerShip> sPlayerBegin = new PlayerStates.SPlayerBegin<PlayerShip>(this);
+        PlayerStates.SPlayerControlling<PlayerShip> sPlayerControlling = new PlayerStates.SPlayerControlling<PlayerShip>(this);
+        PlayerStates.SPlayerExploding<PlayerShip> sPlayerExploding = new PlayerStates.SPlayerExploding<PlayerShip>(this);
+        PlayerStates.SPlayerDead<PlayerShip> sPlayerDead = new PlayerStates.SPlayerDead<PlayerShip>(this);
+        // 2 - criar transições
+        PlayerStates.TLevelStart<PlayerShip> levelStart = new PlayerStates.TLevelStart<PlayerShip>(this);
+        PlayerStates.TIsDead<PlayerShip> isDead = new PlayerStates.TIsDead<PlayerShip>(this);
+        // 3 - definir o distino das transições
+        levelStart.TargetState = sPlayerControlling;
+        isDead.TargetState = sPlayerExploding;
+        // 4 - adicionar as transições aos estados
+        sPlayerBegin.AddTransition(levelStart);
+        sPlayerControlling.AddTransition(isDead);
+        // 5 - adicionar os estados à maquina de estados
+        stateMachine.AddState(sPlayerBegin);
+        stateMachine.AddState(sPlayerControlling);
+
+        stateMachine.InitialState = sPlayerBegin;
+
+        stateMachine.Start();
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if(lerpStartY != lerpTargetY)
-        {
-            Move();
-        }
-
-        if (keyboardMode)
-        {
-            bool moved = false;
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                lerpTargetY = yStart + 2 * offset;
-                moved = true;
-            }
-            else if(Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                lerpTargetY = yStart + -2 * offset;
-                moved = true;
-            }
-            if (moved)
-            {
-                lerpStartY = transform.position.y;
-                lerpT = 0;
-            }
-        }
-        else
-        {
-		    string fire = device.Read();
-		    if (fire == null) {
-			    return;
-		    }
-		    char[] delim = { '|' };
-		    string[] a = fire.Split (delim);
-		    if (a[0] == "fire") 
-		    {
-			    Fire ();
-		    }
-		    if (a[1] != "!" && a[1] != null)
-            {
-			    float cm = float.Parse(a[1]) / 10.0f;
-			    if (Mathf.Abs(lastPos - cm) >= sensitivity)
-			    {
-				    lerpTargetY = yStart + (cm / 10.0f - 3.0f) * offset;
-				    lerpStartY = transform.position.y;
-				    lerpT = 0;
-				    lastPos = cm;
-			    }
-            }
-        }
+        stateMachine.Update();
 	}
-	void Fire ()
+	public void Fire ()
 	{
 		GameObject.Instantiate (bullet, transform.position,transform.rotation);
 	}
-    void Move()
+    public void Move()
     {
         lerpT += displacementSpeed / 100.0f;
         transform.position = new Vector2(transform.position.x, Mathf.Lerp(lerpStartY, lerpTargetY, lerpT));
     }
-	void OnCollisionEnter2D(Collision2D col)
+	public void OnCollisionEnter2D(Collision2D col)
 	{
 		print (col.gameObject.name);
 		source.clip = explosion;
