@@ -10,22 +10,22 @@ namespace PlayerStates
 
         public override void Action()
         {
-            base.Action();
+            //base.Action();
         }
 
         public override void EntryAction()
         {
-            base.EntryAction();
+            //base.EntryAction();
         }
 
         public override void ExitAction()
         {
-            base.ExitAction();
+            //base.ExitAction();
         }
 
         public override string GetStateName()
         {
-            return base.GetStateName();
+            return "PlayerDead";
         }
 
     }

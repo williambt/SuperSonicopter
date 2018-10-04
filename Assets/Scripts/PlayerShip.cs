@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShip : MonoBehaviour
+public class PlayerShip : MonoBehaviour, IShip
 {
     [Header("Helicopter Style")]
     public GameObject bullet;
@@ -13,6 +13,7 @@ public class PlayerShip : MonoBehaviour
     [Range(0, 25)]
     public float displacementSpeed = 10;
     public float sensitivity = 3;
+    public int maxBulletsOnScreen = 50;
     [Space(10)]
 
     [Header("Arduino Settings")]
@@ -40,6 +41,11 @@ public class PlayerShip : MonoBehaviour
     public bool keyboardMode = false;
     [HideInInspector]
     public StateMachine<PlayerShip> stateMachine;
+    Rigidbody2D rigidbody;
+
+
+    ObjectPool objectPool;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -47,7 +53,8 @@ public class PlayerShip : MonoBehaviour
         device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
 		source = gameObject.AddComponent<AudioSource> ();
         keyboardMode = !device.IsConnected();
-
+        rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        objectPool = new ObjectPool(bullet, transform, maxBulletsOnScreen);
 
         // inicialização da state machine
         stateMachine = new StateMachine<PlayerShip>(this);
@@ -59,15 +66,19 @@ public class PlayerShip : MonoBehaviour
         // 2 - criar transições
         PlayerStates.TLevelStart<PlayerShip> levelStart = new PlayerStates.TLevelStart<PlayerShip>(this);
         PlayerStates.TIsDead<PlayerShip> isDead = new PlayerStates.TIsDead<PlayerShip>(this);
+        PlayerStates.TReadyToReset<PlayerShip> readyToReset = new PlayerStates.TReadyToReset<PlayerShip>(this);
         // 3 - definir o distino das transições
         levelStart.TargetState = sPlayerControlling;
         isDead.TargetState = sPlayerExploding;
+        readyToReset.TargetState = sPlayerDead;
         // 4 - adicionar as transições aos estados
         sPlayerBegin.AddTransition(levelStart);
         sPlayerControlling.AddTransition(isDead);
+        sPlayerExploding.AddTransition(readyToReset);
         // 5 - adicionar os estados à maquina de estados
         stateMachine.AddState(sPlayerBegin);
         stateMachine.AddState(sPlayerControlling);
+        stateMachine.AddState(sPlayerExploding);
 
         stateMachine.InitialState = sPlayerBegin;
 
@@ -75,18 +86,19 @@ public class PlayerShip : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update ()
+    void FixedUpdate ()
     {
         stateMachine.Update();
 	}
 	public void Fire ()
 	{
-		GameObject.Instantiate (bullet, transform.position,transform.rotation);
+        GameObject firedBullet = objectPool.GetGameObjectFromPool();
+        firedBullet.transform.position += new Vector3(GetComponent<SpriteRenderer>().bounds.extents.x, 0);
 	}
     public void Move()
     {
         lerpT += displacementSpeed / 100.0f;
-        transform.position = new Vector2(transform.position.x, Mathf.Lerp(lerpStartY, lerpTargetY, lerpT));
+        rigidbody.MovePosition( new Vector2(transform.position.x, Mathf.Lerp(lerpStartY, lerpTargetY, lerpT)));
     }
 	public void OnCollisionEnter2D(Collision2D col)
 	{
@@ -99,4 +111,8 @@ public class PlayerShip : MonoBehaviour
 		source.Play ();
 	}
 
+    public bool IsDead()
+    {
+        return !GetComponent<Animator>().GetBool("Alive");
+    }
 }

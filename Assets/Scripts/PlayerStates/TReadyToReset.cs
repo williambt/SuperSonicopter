@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace PlayerStates
 {
-    class TIsDead<T> : Transition<T>
+    class TReadyToReset<T> : Transition<T>
     {
-        IShip shipRef;
-        public TIsDead(T owner) : base(owner)
+        public TReadyToReset(T owner) : base(owner)
         {
-            shipRef = (IShip)Owner;
         }
+
         public override void EntryAction()
         {
             //base.EntryAction();
@@ -21,8 +23,7 @@ namespace PlayerStates
 
         public override bool IsTriggered()
         {
-            return shipRef.IsDead();
+            return false;
         }
     }
-   
 }

@@ -5,6 +5,8 @@ namespace PlayerStates
     class SPlayerControlling<T> : State<T>
     {
         PlayerShip player;
+        Rigidbody2D rigidbody;
+
 
         public SPlayerControlling(T Owner) : base(Owner)
         {
@@ -21,15 +23,19 @@ namespace PlayerStates
             if (player.keyboardMode)
             {
                 bool moved = false;
-                if (Input.GetKeyDown(KeyCode.UpArrow))
+                if (Input.GetKey(KeyCode.UpArrow))
                 {
-                    player.lerpTargetY = player.yStart + 2 * player.offset;
+                    player.lerpTargetY = player.transform.position.y + 1 * player.offset;
                     moved = true;
                 }
-                else if (Input.GetKeyDown(KeyCode.DownArrow))
+                else if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    player.lerpTargetY = player.yStart + -2 * player.offset;
+                    player.lerpTargetY = player.transform.position.y - 1 * player.offset;
                     moved = true;
+                }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    player.Fire();
                 }
                 if (moved)
                 {
@@ -72,12 +78,12 @@ namespace PlayerStates
 
         public override void ExitAction()
         {
-            base.ExitAction();
+            //base.ExitAction();
         }
 
         public override string GetStateName()
         {
-            return "Controlling";
+            return "PlayerControlling";
         }
     }
 }

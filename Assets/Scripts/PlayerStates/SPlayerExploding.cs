@@ -6,28 +6,29 @@ namespace PlayerStates
     {
         public SPlayerExploding(T Owner) : base(Owner)
         {
+
         }
 
         public override void Action()
         {
-            base.Action();
+            //base.Action();
         }
 
         public override void EntryAction()
         {
-            base.EntryAction();
+            Debug.Log("entrou no exploding");
         }
 
 
         public override void ExitAction()
         {
-            base.ExitAction();
+            //base.ExitAction();
         }
 
 
         public override string GetStateName()
         {
-            return base.GetStateName();
+            return "PlayerExploding";
         }
 
 

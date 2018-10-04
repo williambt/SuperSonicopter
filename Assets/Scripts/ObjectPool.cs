@@ -18,7 +18,11 @@ public class ObjectPool
         Owner = owner;
         LimitToPool = limit;
     }
-
+    /// <summary>
+    /// returns defined object 
+    /// - owner position and rotation
+    /// - active
+    /// </summary> 
     public GameObject GetGameObjectFromPool()
     {
         if (Pool.Count < LimitToPool)

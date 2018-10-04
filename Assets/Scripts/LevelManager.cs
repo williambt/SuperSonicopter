@@ -31,9 +31,9 @@ public class LevelManager : MonoBehaviour
         {
 		    scenarioRef.Scroll ();
         }
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Begin = !Begin;
+            Begin = true;
         }
 
 	}

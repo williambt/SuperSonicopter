@@ -24,7 +24,7 @@ namespace PlayerStates
         }
         public override string GetStateName()
         {
-            return "Begin";
+            return "PlayerBegin";
         }
     }
 }
