@@ -102,12 +102,11 @@ public class PlayerShip : MonoBehaviour, IShip
     }
 	public void OnCollisionEnter2D(Collision2D col)
 	{
-		print (col.gameObject.name);
 		source.clip = explosion;
 		source.loop = false;
 		GetComponent<SpriteRenderer> ().sprite = dead;
         GetComponent<Animator>().SetBool("Alive", false);
-		GetComponent<Collider2D> ().enabled = false;
+		//GetComponent<Collider2D> ().enabled = false;
 		source.Play ();
 	}
 

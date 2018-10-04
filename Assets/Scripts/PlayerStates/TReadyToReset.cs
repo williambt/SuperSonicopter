@@ -1,14 +1,17 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using UnityEngine;
+
 
 namespace PlayerStates
 {
     class TReadyToReset<T> : Transition<T>
     {
+		Animator animRef;
         public TReadyToReset(T owner) : base(owner)
         {
+			PlayerShip reference = (PlayerShip)(object)Owner;
+			animRef = reference.gameObject.GetComponent<Animator> ();
         }
 
         public override void EntryAction()
@@ -23,7 +26,7 @@ namespace PlayerStates
 
         public override bool IsTriggered()
         {
-            return false;
+			return animRef.GetCurrentAnimatorStateInfo(0).IsName("Dead");
         }
     }
 }

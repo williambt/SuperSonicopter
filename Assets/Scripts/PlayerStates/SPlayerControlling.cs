@@ -46,6 +46,7 @@ namespace PlayerStates
             else
             {
                 string fire = player.device.Read();
+				Debug.Log (fire);
                 if (fire == null)
                 {
                     return;

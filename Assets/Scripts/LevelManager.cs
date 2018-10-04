@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
     void Start ()
     {
         stateMachine = new StateMachine<LevelManager>(this);
-
+		Begin = true;
 	}
 	
 	// Update is called once per frame
