@@ -9,7 +9,7 @@ public class MovementDirect : MonoBehaviour
 
     float startY;
 
-    SerialPort port = new SerialPort("COM3", 9600);
+    SerialPort port = new SerialPort("COM4", 9600);
 
 	// Use this for initialization
 	void Start ()
@@ -28,12 +28,14 @@ public class MovementDirect : MonoBehaviour
             try
             {
                 string input = port.ReadLine();
-                if(input != null && input != "!")
-                    transform.position = new Vector2(transform.position.x, startY + (float.Parse(input) - 6.0f) * speed);
-                print(transform.position.y);
+                //if(input != null && input != "!")
+                    //transform.position = new Vector2(transform.position.x, startY + (float.Parse(input) - 6.0f) * speed);
+                print(input);
             }
             catch(System.Exception)
-            {}
+            {
+				print ("erro");
+			}
         }
 
 	}

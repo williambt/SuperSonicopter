@@ -17,12 +17,12 @@ public class StateMachine<T>
         StateList = new List<State<T>>();
     }
 
-    void Start()
+    public void Start()
     {
         CurrentState = InitialState;
         CurrentState.EntryAction();
     }
-    void Update()
+    public void Update()
     {
         if (CurrentState != null)
         {
@@ -45,11 +45,11 @@ public class StateMachine<T>
             }
             else
             {
-                CurrentState.EntryAction();
+                CurrentState.Action();
             }
         }
     }
-    void AddState(State<T> newState)
+    public void AddState(State<T> newState)
     {
         StateList.Add(newState);
     }
