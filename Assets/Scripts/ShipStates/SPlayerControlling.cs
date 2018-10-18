@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PlayerStates
+namespace ShipStates
 {
     class SPlayerControlling<T> : State<T>
     {

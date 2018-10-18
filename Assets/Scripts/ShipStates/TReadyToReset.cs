@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace PlayerStates
+namespace ShipStates
 {
     class TReadyToReset<T> : Transition<T>
     {
 		Animator animRef;
         public TReadyToReset(T owner) : base(owner)
         {
-			PlayerShip reference = (PlayerShip)(object)Owner;
+			MonoBehaviour reference = (MonoBehaviour)(object)Owner;
 			animRef = reference.gameObject.GetComponent<Animator> ();
         }
 

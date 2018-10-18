@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 
-namespace PlayerStates
+namespace ShipStates
 {
-    class SShipDead<T> : State<T>
+    class SShipExploding<T> : State<T>
     {
-		SpriteRenderer spriteRef;
-        public SShipDead(T Owner) : base(Owner)
+        public SShipExploding(T Owner) : base(Owner)
         {
-			PlayerShip ship = (PlayerShip)(object)Owner;
-			spriteRef = ship.gameObject.GetComponent<SpriteRenderer> ();
+
         }
 
         public override void Action()
@@ -18,19 +16,21 @@ namespace PlayerStates
 
         public override void EntryAction()
         {
-			Debug.Log("entrou no Dead");
-			spriteRef.enabled = false;
+            Debug.Log("entrou no exploding");
         }
+
 
         public override void ExitAction()
         {
             //base.ExitAction();
         }
 
+
         public override string GetStateName()
         {
-            return "ShipDead";
+            return "ShipExploding";
         }
+
 
     }
 }

@@ -41,7 +41,8 @@ public class PlayerShip : MonoBehaviour, IShip
     public bool keyboardMode = false;
     [HideInInspector]
     public StateMachine<PlayerShip> stateMachine;
-    Rigidbody2D rigidbody;
+	[HideInInspector]
+    public Rigidbody2D rigidbody;
 
 
     ObjectPool objectPool;
@@ -59,14 +60,14 @@ public class PlayerShip : MonoBehaviour, IShip
         // inicialização da state machine
         stateMachine = new StateMachine<PlayerShip>(this);
         // 1 - criar estados
-        PlayerStates.SShipBegin<PlayerShip> SShipBegin = new PlayerStates.SShipBegin<PlayerShip>(this);
-        PlayerStates.SPlayerControlling<PlayerShip> sPlayerControlling = new PlayerStates.SPlayerControlling<PlayerShip>(this);
-        PlayerStates.SShipExploding<PlayerShip> SShipExploding = new PlayerStates.SShipExploding<PlayerShip>(this);
-        PlayerStates.SShipDead<PlayerShip> SShipDead = new PlayerStates.SShipDead<PlayerShip>(this);
+        ShipStates.SShipBegin<PlayerShip> SShipBegin = new ShipStates.SShipBegin<PlayerShip>(this);
+        ShipStates.SPlayerControlling<PlayerShip> sPlayerControlling = new ShipStates.SPlayerControlling<PlayerShip>(this);
+        ShipStates.SShipExploding<PlayerShip> SShipExploding = new ShipStates.SShipExploding<PlayerShip>(this);
+        ShipStates.SShipDead<PlayerShip> SShipDead = new ShipStates.SShipDead<PlayerShip>(this);
         // 2 - criar transições
-        PlayerStates.TLevelStart<PlayerShip> levelStart = new PlayerStates.TLevelStart<PlayerShip>(this);
-        PlayerStates.TIsDead<PlayerShip> isDead = new PlayerStates.TIsDead<PlayerShip>(this);
-        PlayerStates.TReadyToReset<PlayerShip> readyToReset = new PlayerStates.TReadyToReset<PlayerShip>(this);
+        ShipStates.TLevelStart<PlayerShip> levelStart = new ShipStates.TLevelStart<PlayerShip>(this);
+        ShipStates.TIsDead<PlayerShip> isDead = new ShipStates.TIsDead<PlayerShip>(this);
+        ShipStates.TReadyToReset<PlayerShip> readyToReset = new ShipStates.TReadyToReset<PlayerShip>(this);
         // 3 - definir o distino das transições
         levelStart.TargetState = sPlayerControlling;
         isDead.TargetState = SShipExploding;

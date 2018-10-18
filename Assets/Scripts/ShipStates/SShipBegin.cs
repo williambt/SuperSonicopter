@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-namespace PlayerStates
+namespace ShipStates
 {
     public class SShipBegin<T> : State<T>
     {
