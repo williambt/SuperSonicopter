@@ -2,9 +2,9 @@
 
 namespace PlayerStates
 {
-    class SPlayerExploding<T> : State<T>
+    class SShipExploding<T> : State<T>
     {
-        public SPlayerExploding(T Owner) : base(Owner)
+        public SShipExploding(T Owner) : base(Owner)
         {
 
         }
@@ -28,7 +28,7 @@ namespace PlayerStates
 
         public override string GetStateName()
         {
-            return "PlayerExploding";
+            return "ShipExploding";
         }
 
 

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveEmitter : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
+public class WaveEmitter : MonoBehaviour
+{
+    public List<Wave> waves;
+	void Start ()
+    {
+        waves = new List<Wave>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}

@@ -25,13 +25,7 @@ public class ObjectPool
     /// </summary> 
     public GameObject GetGameObjectFromPool()
     {
-        if (Pool.Count < LimitToPool)
-        {
-            GameObject obj = GameObject.Instantiate(toInstantiate, Owner.position, Owner.rotation);
-            Pool.Add(obj);
-            return obj;
-        }
-        else
+        if (Pool.Count > 0)
         {
             foreach (GameObject item in Pool)
             {
@@ -43,8 +37,20 @@ public class ObjectPool
                     return item;
                 }
             }
+            if (Pool.Count < LimitToPool)
+            {
+                GameObject obj = GameObject.Instantiate(toInstantiate, Owner.position, Owner.rotation);
+                Pool.Add(obj);
+                return obj;
+            }
             LimitToPool++;
             return GetGameObjectFromPool();
+        } 
+        else
+        {
+            GameObject obj = GameObject.Instantiate(toInstantiate, Owner.position, Owner.rotation);
+            Pool.Add(obj);
+            return obj;
         }
     }
     public int GetActiveCount()

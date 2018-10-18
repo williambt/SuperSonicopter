@@ -2,10 +2,10 @@
 
 namespace PlayerStates
 {
-    class SPlayerDead<T> : State<T>
+    class SShipDead<T> : State<T>
     {
 		SpriteRenderer spriteRef;
-        public SPlayerDead(T Owner) : base(Owner)
+        public SShipDead(T Owner) : base(Owner)
         {
 			PlayerShip ship = (PlayerShip)(object)Owner;
 			spriteRef = ship.gameObject.GetComponent<SpriteRenderer> ();
@@ -29,7 +29,7 @@ namespace PlayerStates
 
         public override string GetStateName()
         {
-            return "PlayerDead";
+            return "ShipDead";
         }
 
     }

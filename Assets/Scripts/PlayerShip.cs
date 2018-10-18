@@ -59,28 +59,28 @@ public class PlayerShip : MonoBehaviour, IShip
         // inicialização da state machine
         stateMachine = new StateMachine<PlayerShip>(this);
         // 1 - criar estados
-        PlayerStates.SPlayerBegin<PlayerShip> sPlayerBegin = new PlayerStates.SPlayerBegin<PlayerShip>(this);
+        PlayerStates.SShipBegin<PlayerShip> SShipBegin = new PlayerStates.SShipBegin<PlayerShip>(this);
         PlayerStates.SPlayerControlling<PlayerShip> sPlayerControlling = new PlayerStates.SPlayerControlling<PlayerShip>(this);
-        PlayerStates.SPlayerExploding<PlayerShip> sPlayerExploding = new PlayerStates.SPlayerExploding<PlayerShip>(this);
-        PlayerStates.SPlayerDead<PlayerShip> sPlayerDead = new PlayerStates.SPlayerDead<PlayerShip>(this);
+        PlayerStates.SShipExploding<PlayerShip> SShipExploding = new PlayerStates.SShipExploding<PlayerShip>(this);
+        PlayerStates.SShipDead<PlayerShip> SShipDead = new PlayerStates.SShipDead<PlayerShip>(this);
         // 2 - criar transições
         PlayerStates.TLevelStart<PlayerShip> levelStart = new PlayerStates.TLevelStart<PlayerShip>(this);
         PlayerStates.TIsDead<PlayerShip> isDead = new PlayerStates.TIsDead<PlayerShip>(this);
         PlayerStates.TReadyToReset<PlayerShip> readyToReset = new PlayerStates.TReadyToReset<PlayerShip>(this);
         // 3 - definir o distino das transições
         levelStart.TargetState = sPlayerControlling;
-        isDead.TargetState = sPlayerExploding;
-        readyToReset.TargetState = sPlayerDead;
+        isDead.TargetState = SShipExploding;
+        readyToReset.TargetState = SShipDead;
         // 4 - adicionar as transições aos estados
-        sPlayerBegin.AddTransition(levelStart);
+        SShipBegin.AddTransition(levelStart);
         sPlayerControlling.AddTransition(isDead);
-        sPlayerExploding.AddTransition(readyToReset);
+        SShipExploding.AddTransition(readyToReset);
         // 5 - adicionar os estados à maquina de estados
-        stateMachine.AddState(sPlayerBegin);
+        stateMachine.AddState(SShipBegin);
         stateMachine.AddState(sPlayerControlling);
-        stateMachine.AddState(sPlayerExploding);
+        stateMachine.AddState(SShipExploding);
 
-        stateMachine.InitialState = sPlayerBegin;
+        stateMachine.InitialState = SShipBegin;
 
         stateMachine.Start();
     }
