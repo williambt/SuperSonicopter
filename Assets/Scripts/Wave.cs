@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public enum ENEMY
 {
-    Basic, Fighter, Bomber
+    Fighter, Bomber
 }
 [System.Serializable]
 public struct EnemyGroup
@@ -16,6 +16,7 @@ public struct EnemyGroup
 public class Wave 
 {
     public EnemyGroup Group;
+	public float Interval;
     public Wave()
     {
         Group = new EnemyGroup();

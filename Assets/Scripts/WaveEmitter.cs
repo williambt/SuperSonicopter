@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class WaveEmitter : MonoBehaviour
 {
-    public List<Wave> waves;
+    public List<Wave> Waves;
+	public int CurrentIndex = 0;
+	float Clock = 0;
+
+
+
+	ObjectPool Pool;
+
 	void Start ()
     {
-        waves = new List<Wave>();
+        Waves = new List<Wave>();
+		Pool = new ObjectPool ();
 	}
 	
-	void Update () {
+	void Update () 
+	{
+		Clock += Time.deltaTime;
+		if (Clock >= Waves[CurrentIndex].Interval)
+		{
+			
+		}
+	}
+	void Spawn()
+	{
 		
 	}
 }
