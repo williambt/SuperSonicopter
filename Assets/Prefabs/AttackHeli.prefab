@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 95699462749233032}
   - component: {fileID: 50554862076399158}
   - component: {fileID: 60265572670230952}
+  - component: {fileID: 114629685405921518}
   m_Layer: 0
   m_Name: AttackHeli
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1252358578441540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.033, y: 0.184, z: -1.0047264}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -110,6 +111,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114568656837726822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,10 +124,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 0}
-  Explosion: {fileID: 0}
-  Dead: {fileID: 0}
-  Speed: 10
-  rigidbody: {fileID: 0}
+  dead: {fileID: 0}
+  RigidbodyRef: {fileID: 0}
+--- !u!114 &114629685405921518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1252358578441540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd79848abc8a0a4fa6bdb6b6c3935ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionClip: {fileID: 0}
+  FireClip: {fileID: 0}
 --- !u!212 &212200261903794182
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -139,6 +152,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

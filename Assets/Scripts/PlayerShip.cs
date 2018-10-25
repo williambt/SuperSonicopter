@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(ShipAudio))]
 public class PlayerShip : MonoBehaviour, IShip
 {
     [Header("Helicopter Style")]
     public GameObject bullet;
-	AudioSource source;
-	public AudioClip explosion;
-	public Sprite dead;
+    public Sprite dead;
     [Header("Helicopter Settings")]
     [Range(0, 25)]
     public float displacementSpeed = 10;
@@ -44,7 +42,7 @@ public class PlayerShip : MonoBehaviour, IShip
 	[HideInInspector]
     public Rigidbody2D rigidbody;
 
-
+    ShipAudio ShipAudioRef;
     ObjectPool objectPool;
 
 	// Use this for initialization
@@ -52,7 +50,7 @@ public class PlayerShip : MonoBehaviour, IShip
     {
         yStart = transform.position.y;
         device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
-		source = gameObject.AddComponent<AudioSource> ();
+		ShipAudioRef = gameObject.AddComponent<ShipAudio> ();
         keyboardMode = !device.IsConnected();
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
         objectPool = new ObjectPool(bullet, transform, maxBulletsOnScreen);
@@ -95,6 +93,7 @@ public class PlayerShip : MonoBehaviour, IShip
 	{
         GameObject firedBullet = objectPool.GetGameObjectFromPool();
         firedBullet.transform.position += new Vector3(GetComponent<SpriteRenderer>().bounds.extents.x, 0);
+        ShipAudioRef.PlayFireSound();
 	}
     public void Move()
     {
@@ -103,16 +102,18 @@ public class PlayerShip : MonoBehaviour, IShip
     }
 	public void OnCollisionEnter2D(Collision2D col)
 	{
-		source.clip = explosion;
-		source.loop = false;
-		GetComponent<SpriteRenderer> ().sprite = dead;
-        GetComponent<Animator>().SetBool("Alive", false);
-		//GetComponent<Collider2D> ().enabled = false;
-		source.Play ();
+        Explode();
 	}
 
     public bool IsDead()
     {
         return !GetComponent<Animator>().GetBool("Alive");
+    }
+
+    public void Explode()
+    {
+        GetComponent<SpriteRenderer>().sprite = dead;
+        GetComponent<Animator>().SetBool("Alive", false);
+        ShipAudioRef.PlayExplosionSound();
     }
 }

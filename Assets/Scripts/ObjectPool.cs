@@ -6,7 +6,7 @@ using UnityEngine;
 public class ObjectPool
 {
     List<GameObject> Pool;
-    GameObject toInstantiate;
+    GameObject ToInstantiate;
     Transform Owner;
     int LimitToPool { get; set; }
 
@@ -14,7 +14,7 @@ public class ObjectPool
     public ObjectPool(GameObject toPool, Transform owner, int limit)
     {
         Pool = new List<GameObject>();
-        toInstantiate = toPool;
+        ToInstantiate = toPool;
         Owner = owner;
         LimitToPool = limit;
     }
@@ -39,7 +39,7 @@ public class ObjectPool
             }
             if (Pool.Count < LimitToPool)
             {
-                GameObject obj = GameObject.Instantiate(toInstantiate, Owner.position, Owner.rotation);
+                GameObject obj = GameObject.Instantiate(ToInstantiate, Owner.position, Owner.rotation);
                 Pool.Add(obj);
                 return obj;
             }
@@ -48,7 +48,7 @@ public class ObjectPool
         } 
         else
         {
-            GameObject obj = GameObject.Instantiate(toInstantiate, Owner.position, Owner.rotation);
+            GameObject obj = GameObject.Instantiate(ToInstantiate, Owner.position, Owner.rotation);
             Pool.Add(obj);
             return obj;
         }

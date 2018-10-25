@@ -1,29 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(ShipAudio))]
 public class EnemyShip : MonoBehaviour, IShip
 {
 	[Header("Style")]
 	public GameObject Bullet;
-	AudioSource Source;
-	public AudioClip Explosion;
-	public Sprite Dead;
-	public float Speed;
-	[HideInInspector]
-	public Rigidbody2D rigidbodyRef;
-	ObjectPool objectPool;
+    public Sprite dead;
 
-	[HideInInspector]
+    [HideInInspector]
+	public Rigidbody2D RigidbodyRef;
+	ObjectPool ObjectPool;
+    ShipAudio ShipAudioRef;
+
+    [HideInInspector]
 	public StateMachine<EnemyShip> stateMachine;
 
-	MovementType moveType; 
+	MovementType MoveType; 
 
     void Start ()
     {
-		rigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
-		// inicialização da state machine
-		stateMachine = new StateMachine<EnemyShip>(this);
+		RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
+        ShipAudioRef = gameObject.AddComponent<ShipAudio>();
+        // inicialização da state machine
+        stateMachine = new StateMachine<EnemyShip>(this);
 		// 1 - criar estados
 		ShipStates.SShipBegin<EnemyShip> SShipBegin = new ShipStates.SShipBegin<EnemyShip>(this);
 		ShipStates.SEnemyControlling sEnemyControlling = new ShipStates.SEnemyControlling(this);
@@ -59,5 +59,14 @@ public class EnemyShip : MonoBehaviour, IShip
     {
         return false;
     }
-
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        Explode();
+    }
+    public void Explode()
+    {
+        GetComponent<SpriteRenderer>().sprite = dead;
+        GetComponent<Animator>().SetBool("Alive", false);
+        ShipAudioRef.PlayExplosionSound();
+    }
 }

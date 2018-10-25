@@ -13,7 +13,8 @@ namespace ShipStates
 		}
 		public override void EntryAction()
 		{
-			Debug.Log("entrou no controlling");
+			Debug.Log("entrou no controlling inimigo");
+            Owner.RigidbodyRef.AddTorque(-0.1f, ForceMode2D.Impulse);
 		}
 
 
