@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour, IShip
 {
     [Header("Helicopter Style")]
+    public BulletSettings settings;
     public GameObject bullet;
     public Sprite dead;
     [Header("Helicopter Settings")]
@@ -40,19 +41,24 @@ public class PlayerShip : MonoBehaviour, IShip
     [HideInInspector]
     public StateMachine<PlayerShip> stateMachine;
 	[HideInInspector]
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D RigidbodyRef;
 
     ShipAudio ShipAudioRef;
     ObjectPool objectPool;
 
-	// Use this for initialization
-	void Start ()
+    float HP { get; set; }
+
+
+
+    
+    // Use this for initialization
+    void Start ()
     {
         yStart = transform.position.y;
         device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
 		ShipAudioRef = gameObject.AddComponent<ShipAudio> ();
         keyboardMode = !device.IsConnected();
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         objectPool = new ObjectPool(bullet, transform, maxBulletsOnScreen);
 
         // inicialização da state machine
@@ -92,18 +98,21 @@ public class PlayerShip : MonoBehaviour, IShip
 	public void Fire ()
 	{
         GameObject firedBullet = objectPool.GetGameObjectFromPool();
-        firedBullet.transform.position += new Vector3(GetComponent<SpriteRenderer>().bounds.extents.x, 0);
+        firedBullet.GetComponent<Bullet>().Initialize(gameObject, settings);
         ShipAudioRef.PlayFireSound();
 	}
     public void Move()
     {
         lerpT += displacementSpeed / 100.0f;
-        rigidbody.MovePosition( new Vector2(transform.position.x, Mathf.Lerp(lerpStartY, lerpTargetY, lerpT)));
+        RigidbodyRef.MovePosition( new Vector2(transform.position.x, Mathf.Lerp(lerpStartY, lerpTargetY, lerpT)));
     }
 	public void OnCollisionEnter2D(Collision2D col)
-	{
-        Explode();
-	}
+    {
+        if (col.gameObject.GetComponent<EnemyShip>())
+        {
+            Explode();
+        }
+    }
 
     public bool IsDead()
     {
@@ -115,5 +124,10 @@ public class PlayerShip : MonoBehaviour, IShip
         GetComponent<SpriteRenderer>().sprite = dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
+    }
+
+    public void TakeDamage(float value)
+    {
+        //throw new System.NotImplementedException();
     }
 }

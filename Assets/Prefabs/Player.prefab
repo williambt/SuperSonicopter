@@ -21,11 +21,11 @@ GameObject:
   - component: {fileID: 4023637237161652}
   - component: {fileID: 212363914418576172}
   - component: {fileID: 114364261889052424}
-  - component: {fileID: 58777913660862584}
   - component: {fileID: 50204015374630100}
   - component: {fileID: 95593362341219214}
   - component: {fileID: 114818282035101940}
-  m_Layer: 0
+  - component: {fileID: 60496449340740024}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,9 +64,9 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &58777913660862584
-CircleCollider2D:
+  m_Constraints: 5
+--- !u!60 &60496449340740024
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -78,8 +78,26 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.2, y: 0.2}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.049999997, y: 0.099999994}
+      - {x: -0.099999994, y: 0.044999998}
+      - {x: -0.099999994, y: -0.03}
+      - {x: -0.074999996, y: -0.085}
+      - {x: -0.065, y: -0.099999994}
+      - {x: 0.06, y: -0.099999994}
+      - {x: 0.099999994, y: -0.074999996}
+      - {x: 0.099999994, y: 0.055}
+      - {x: 0.049999997, y: 0.099999994}
 --- !u!95 &95593362341219214
 Animator:
   serializedVersion: 3
@@ -109,6 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bab19f8fa65bb2489202b34628bf61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings:
+    DamageValue: 0
+    Speed: 0
+    Dir: {x: 0, y: 0}
   bullet: {fileID: 1102204247834110, guid: faca705d8dd87ee4e951a240f81ec6b4, type: 2}
   dead: {fileID: 21300000, guid: 579eed6de54dc5e44907b744acfb8061, type: 3}
   displacementSpeed: 10
@@ -125,7 +147,7 @@ MonoBehaviour:
   lerpTargetY: 0
   lerpT: 0
   keyboardMode: 0
-  rigidbody: {fileID: 0}
+  RigidbodyRef: {fileID: 0}
 --- !u!114 &114818282035101940
 MonoBehaviour:
   m_ObjectHideFlags: 1

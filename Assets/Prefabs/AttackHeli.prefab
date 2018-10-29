@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50554862076399158}
   - component: {fileID: 60265572670230952}
   - component: {fileID: 114629685405921518}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AttackHeli
   m_TagString: Untagged
   m_Icon: {fileID: 0}

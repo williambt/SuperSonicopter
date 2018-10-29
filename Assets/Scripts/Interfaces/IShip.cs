@@ -7,5 +7,6 @@ using System.Text;
 public interface IShip
 {
     bool IsDead();
+    void TakeDamage(float value);
 }
 

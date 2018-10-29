@@ -16,7 +16,9 @@ public class EnemyShip : MonoBehaviour, IShip
     [HideInInspector]
 	public StateMachine<EnemyShip> stateMachine;
 
-	MovementType MoveType; 
+	MovementType MoveType;
+
+    float HP { get; set; }
 
     void Start ()
     {
@@ -61,12 +63,20 @@ public class EnemyShip : MonoBehaviour, IShip
     }
     public void OnCollisionEnter2D(Collision2D col)
     {
-        Explode();
+        if( col.gameObject.GetComponent<PlayerShip>())
+        {
+            Explode();
+        }
     }
     public void Explode()
     {
         GetComponent<SpriteRenderer>().sprite = dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
+    }
+
+    public void TakeDamage(float value)
+    {
+        throw new System.NotImplementedException();
     }
 }

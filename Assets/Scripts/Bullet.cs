@@ -2,24 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+[System.Serializable]
+public struct BulletSettings
+{
+    public float DamageValue;
+    public float Speed; 
+    public Vector2 Dir;
 
-    Camera cameraRef;
-    Renderer rendererRef;
-	// Use this for initialization
-	void Start ()
+    public BulletSettings(float damageValue, float speed, Vector2 dir)
     {
-        cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        rendererRef = GetComponent<Renderer>();
-
+        this.DamageValue = damageValue;
+        this.Speed = speed;
+        this.Dir = dir;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		transform.Translate (new Vector2 (1.0f, 0));
-        if (!RendererExtensions.IsVisibleFrom(rendererRef, cameraRef))
+}
+
+
+public class Bullet : MonoBehaviour
+{
+    Camera CameraRef;
+    Renderer RendererRef;
+    Rigidbody2D RigidbodyRef;
+
+    public BulletSettings Settings;
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        if (!RendererExtensions.IsVisibleFrom(RendererRef, CameraRef))
         {
             gameObject.SetActive(false);
+            GetComponent<CircleCollider2D>().enabled = false;
         }
-	}
+    }
+    private void FixedUpdate()
+    {
+        Vector2 move = RigidbodyRef.position + (Settings.Dir * Settings.Speed * Time.deltaTime);
+        RigidbodyRef.MovePosition(move);
+    }
+    public void Initialize(GameObject owner, BulletSettings settings)
+    {
+        CameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        RendererRef = GetComponent<Renderer>();
+        RigidbodyRef = GetComponent<Rigidbody2D>();
+        RigidbodyRef.MovePosition(owner.transform.position + (new Vector3(settings.Dir.x, settings.Dir.y,0.0f) * 10));
+        GetComponent<CircleCollider2D>().enabled = true;
+        this.Settings = settings;
+    }
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        IShip shipcolider = col.gameObject.GetComponent(typeof(IShip)) as IShip;
+        if (shipcolider != null)
+        {
+            shipcolider.TakeDamage(Settings.DamageValue);
+        }
+    }
 }
