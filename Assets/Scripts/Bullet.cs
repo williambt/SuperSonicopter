@@ -41,15 +41,18 @@ public class Bullet : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector2 move = RigidbodyRef.position + (Settings.Dir * Settings.Speed * Time.deltaTime);
-        RigidbodyRef.MovePosition(move);
+        Vector2 move = new Vector2(transform.position.x,transform.position.y) + (Settings.Dir * Settings.Speed * Time.deltaTime);
+        transform.position = move;
     }
     public void Initialize(GameObject owner, BulletSettings settings)
     {
         CameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         RendererRef = GetComponent<Renderer>();
         RigidbodyRef = GetComponent<Rigidbody2D>();
-        RigidbodyRef.MovePosition(owner.transform.position + (new Vector3(settings.Dir.x, settings.Dir.y,0.0f) * 10));
+        //RigidbodyRef.MovePosition(owner.transform.position + (new Vector3(settings.Dir.x, settings.Dir.y,0.0f) * 10));
+        //RigidbodyRef.MovePosition(new Vector2(10000, 10000));
+        transform.position = owner.transform.position + new Vector3(settings.Dir.x, settings.Dir.y,0.0f);
+
         GetComponent<CircleCollider2D>().enabled = true;
         this.Settings = settings;
     }

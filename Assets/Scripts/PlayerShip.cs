@@ -128,6 +128,6 @@ public class PlayerShip : MonoBehaviour, IShip
 
     public void TakeDamage(float value)
     {
-        //throw new System.NotImplementedException();
+        throw new System.NotImplementedException();
     }
 }
