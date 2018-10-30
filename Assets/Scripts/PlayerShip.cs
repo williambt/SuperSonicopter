@@ -12,7 +12,8 @@ public class PlayerShip : MonoBehaviour, IShip
     [Range(0, 25)]
     public float displacementSpeed = 10;
     public float sensitivity = 3;
-    public int maxBulletsOnScreen = 50;
+    public int maxBulletsOnScreen = 30;
+    public float MaxHP;
     [Space(10)]
 
     [Header("Arduino Settings")]
@@ -60,6 +61,8 @@ public class PlayerShip : MonoBehaviour, IShip
         keyboardMode = !device.IsConnected();
         RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         objectPool = new ObjectPool(bullet, transform, maxBulletsOnScreen);
+
+        HP = MaxHP;
 
         // inicialização da state machine
         stateMachine = new StateMachine<PlayerShip>(this);
@@ -110,13 +113,13 @@ public class PlayerShip : MonoBehaviour, IShip
     {
         if (col.gameObject.GetComponent<EnemyShip>())
         {
-            Explode();
+            HP = 0 ;
         }
     }
 
     public bool IsDead()
     {
-        return !GetComponent<Animator>().GetBool("Alive");
+        return HP <= 0;
     }
 
     public void Explode()

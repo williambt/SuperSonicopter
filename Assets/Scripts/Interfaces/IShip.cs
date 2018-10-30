@@ -8,5 +8,6 @@ public interface IShip
 {
     bool IsDead();
     void TakeDamage(float value);
+    void Explode();
 }
 

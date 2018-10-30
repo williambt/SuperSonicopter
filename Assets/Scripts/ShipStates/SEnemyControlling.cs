@@ -10,6 +10,7 @@ namespace ShipStates
 		}
 		public override void Action()
 		{
+            Owner.RigidbodyRef.AddForce(new Vector2(-1, 0));
 		}
 		public override void EntryAction()
 		{

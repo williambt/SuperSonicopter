@@ -64,7 +64,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &60265572670230952
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bullet: {fileID: 0}
   dead: {fileID: 0}
+  MaxHP: 0
   RigidbodyRef: {fileID: 0}
 --- !u!114 &114629685405921518
 MonoBehaviour:

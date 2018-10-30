@@ -16,7 +16,12 @@ namespace ShipStates
 
         public override void EntryAction()
         {
-            Debug.Log("entrou no exploding");
+            IShip ship = Owner as IShip;
+            if (ship != null)
+            {
+                ship.Explode();
+                Debug.Log("entrou com sucesso no exploding");
+            }
         }
 
 

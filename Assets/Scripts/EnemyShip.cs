@@ -7,6 +7,7 @@ public class EnemyShip : MonoBehaviour, IShip
 	[Header("Style")]
 	public GameObject Bullet;
     public Sprite dead;
+    public float MaxHP;
 
     [HideInInspector]
 	public Rigidbody2D RigidbodyRef;
@@ -19,10 +20,11 @@ public class EnemyShip : MonoBehaviour, IShip
 	MovementType MoveType;
 
     float HP { get; set; }
-
     void Start ()
     {
-		RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
+        HP = MaxHP;
+        
+        RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         ShipAudioRef = gameObject.AddComponent<ShipAudio>();
         // inicialização da state machine
         stateMachine = new StateMachine<EnemyShip>(this);
@@ -53,19 +55,19 @@ public class EnemyShip : MonoBehaviour, IShip
 		stateMachine.Start();
 	}
 	
-	void Update ()
+	void FixedUpdate ()
     {
 		stateMachine.Update ();
 	}
     public bool IsDead()
     {
-        return false;
+        return HP <= 0;
     }
     public void OnCollisionEnter2D(Collision2D col)
     {
         if( col.gameObject.GetComponent<PlayerShip>())
         {
-            Explode();
+            HP = 0;
         }
     }
     public void Explode()
