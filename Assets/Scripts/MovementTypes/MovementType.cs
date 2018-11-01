@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementType
+public class MovementType : MonoBehaviour
 {
-	
+    public virtual void Move(Rigidbody2D rigidbody2DRef)
+    {
+
+    }
 }

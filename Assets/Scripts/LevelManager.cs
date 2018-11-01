@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
 	public Scenario scenarioRef;
     StateMachine<LevelManager> stateMachine;
 
+    AudioSource source;
+
     public bool Begin { get; set; }
 
     public static LevelManager Instance;
@@ -22,7 +24,8 @@ public class LevelManager : MonoBehaviour
     {
         stateMachine = new StateMachine<LevelManager>(this);
 		Begin = true;
-	}
+        source = GetComponent<AudioSource>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -35,6 +38,9 @@ public class LevelManager : MonoBehaviour
         {
             Begin = true;
         }
-
+        if (source.timeSamples > 526912 + 4661888)
+        {
+            source.timeSamples = 526912;
+        }
 	}
 }

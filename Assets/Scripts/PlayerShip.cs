@@ -57,7 +57,7 @@ public class PlayerShip : MonoBehaviour, IShip
     {
         yStart = transform.position.y;
         device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
-		ShipAudioRef = gameObject.AddComponent<ShipAudio> ();
+		ShipAudioRef = gameObject.GetComponent<ShipAudio> ();
         keyboardMode = !device.IsConnected();
         RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         objectPool = new ObjectPool(bullet, transform, maxBulletsOnScreen);
@@ -131,6 +131,6 @@ public class PlayerShip : MonoBehaviour, IShip
 
     public void TakeDamage(float value)
     {
-        throw new System.NotImplementedException();
+        HP -= value;
     }
 }

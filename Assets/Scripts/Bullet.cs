@@ -35,13 +35,13 @@ public class Bullet : MonoBehaviour
     {
         if (!RendererExtensions.IsVisibleFrom(RendererRef, CameraRef))
         {
-            gameObject.SetActive(false);
             GetComponent<CircleCollider2D>().enabled = false;
+            gameObject.SetActive(false);
         }
     }
     private void FixedUpdate()
     {
-        Vector2 move = new Vector2(transform.position.x,transform.position.y) + (Settings.Dir * Settings.Speed * Time.deltaTime);
+        Vector3 move = new Vector3(transform.position.x,transform.position.y, transform.position.z) + (new Vector3(Settings.Dir.x, Settings.Dir.y,0.0f) * Settings.Speed * Time.deltaTime);
         transform.position = move;
     }
     public void Initialize(GameObject owner, BulletSettings settings)
@@ -62,6 +62,8 @@ public class Bullet : MonoBehaviour
         if (shipcolider != null)
         {
             shipcolider.TakeDamage(Settings.DamageValue);
+            GetComponent<CircleCollider2D>().enabled = false;
+            gameObject.SetActive(false);
         }
     }
 }

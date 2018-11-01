@@ -25,7 +25,7 @@ public class EnemyShip : MonoBehaviour, IShip
         HP = MaxHP;
         
         RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
-        ShipAudioRef = gameObject.AddComponent<ShipAudio>();
+        ShipAudioRef = gameObject.GetComponent<ShipAudio>();
         // inicialização da state machine
         stateMachine = new StateMachine<EnemyShip>(this);
 		// 1 - criar estados
@@ -79,6 +79,6 @@ public class EnemyShip : MonoBehaviour, IShip
 
     public void TakeDamage(float value)
     {
-        throw new System.NotImplementedException();
+        HP -= value;
     }
 }

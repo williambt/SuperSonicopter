@@ -25,12 +25,12 @@ namespace ShipStates
                 bool moved = false;
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
-                    player.lerpTargetY = player.transform.position.y + 1 * player.offset;
+                    player.lerpTargetY = player.transform.position.y + 1 ;
                     moved = true;
                 }
                 else if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    player.lerpTargetY = player.transform.position.y - 1 * player.offset;
+                    player.lerpTargetY = player.transform.position.y - 1 ;
                     moved = true;
                 }
                 if (Input.GetKeyDown(KeyCode.Space))

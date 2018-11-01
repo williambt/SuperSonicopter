@@ -76,9 +76,8 @@ public abstract class wrmhlThread { // wrmhlThread is the common Thread for rece
         {
 		    deviceSerial.Open(); // Start the data Flow.
         }
-        catch (System.Exception e)
+        catch
         {
-
             return false;
         }
         return true;

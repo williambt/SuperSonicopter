@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50554862076399158}
   - component: {fileID: 60265572670230952}
   - component: {fileID: 114629685405921518}
+  - component: {fileID: 114003391346568954}
   m_Layer: 10
   m_Name: AttackHeli
   m_TagString: Untagged
@@ -112,6 +113,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114003391346568954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1252358578441540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0156086c5112d5498d786935a4f4762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114568656837726822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd79848abc8a0a4fa6bdb6b6c3935ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionClip: {fileID: 0}
+  ExplosionClip: {fileID: 8300000, guid: 42b0b222b4ecd7049b9a328dc5e956dc, type: 3}
   FireClip: {fileID: 0}
 --- !u!212 &212200261903794182
 SpriteRenderer:
