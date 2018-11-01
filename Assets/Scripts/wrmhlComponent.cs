@@ -47,7 +47,7 @@ public class wrmhlComponent
         Device.send(dataToSend);
     }
     public bool IsConnected()
-    {
+	{
         return successfullyConnected;
     }
 }
