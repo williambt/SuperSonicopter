@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(ShipAudio))]
 public class PlayerShip : MonoBehaviour, IShip
 {
     [Header("Helicopter Style")]
+    public BulletSettings settings;
     public GameObject bullet;
-	AudioSource source;
-	public AudioClip explosion;
-	public Sprite dead;
+    public Sprite dead;
     [Header("Helicopter Settings")]
     [Range(0, 25)]
     public float displacementSpeed = 10;
     public float sensitivity = 3;
-    public int maxBulletsOnScreen = 50;
+    public int maxBulletsOnScreen = 30;
+    public float MaxHP;
     [Space(10)]
 
     [Header("Arduino Settings")]
@@ -41,46 +41,54 @@ public class PlayerShip : MonoBehaviour, IShip
     public bool keyboardMode = false;
     [HideInInspector]
     public StateMachine<PlayerShip> stateMachine;
-    Rigidbody2D rigidbody;
+	[HideInInspector]
+    public Rigidbody2D RigidbodyRef;
 
-
+    ShipAudio ShipAudioRef;
     ObjectPool objectPool;
 
-	// Use this for initialization
-	void Start ()
+    float HP { get; set; }
+
+
+
+    
+    // Use this for initialization
+    void Start ()
     {
         yStart = transform.position.y;
         device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
-		source = gameObject.AddComponent<AudioSource> ();
+		ShipAudioRef = gameObject.GetComponent<ShipAudio> ();
         keyboardMode = !device.IsConnected();
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         objectPool = new ObjectPool(bullet, transform, maxBulletsOnScreen);
+
+        HP = MaxHP;
 
         // inicialização da state machine
         stateMachine = new StateMachine<PlayerShip>(this);
         // 1 - criar estados
-        PlayerStates.SPlayerBegin<PlayerShip> sPlayerBegin = new PlayerStates.SPlayerBegin<PlayerShip>(this);
-        PlayerStates.SPlayerControlling<PlayerShip> sPlayerControlling = new PlayerStates.SPlayerControlling<PlayerShip>(this);
-        PlayerStates.SPlayerExploding<PlayerShip> sPlayerExploding = new PlayerStates.SPlayerExploding<PlayerShip>(this);
-        PlayerStates.SPlayerDead<PlayerShip> sPlayerDead = new PlayerStates.SPlayerDead<PlayerShip>(this);
+        ShipStates.SShipBegin<PlayerShip> SShipBegin = new ShipStates.SShipBegin<PlayerShip>(this);
+        ShipStates.SPlayerControlling<PlayerShip> sPlayerControlling = new ShipStates.SPlayerControlling<PlayerShip>(this);
+        ShipStates.SShipExploding<PlayerShip> SShipExploding = new ShipStates.SShipExploding<PlayerShip>(this);
+        ShipStates.SShipDead<PlayerShip> SShipDead = new ShipStates.SShipDead<PlayerShip>(this);
         // 2 - criar transições
-        PlayerStates.TLevelStart<PlayerShip> levelStart = new PlayerStates.TLevelStart<PlayerShip>(this);
-        PlayerStates.TIsDead<PlayerShip> isDead = new PlayerStates.TIsDead<PlayerShip>(this);
-        PlayerStates.TReadyToReset<PlayerShip> readyToReset = new PlayerStates.TReadyToReset<PlayerShip>(this);
+        ShipStates.TLevelStart<PlayerShip> levelStart = new ShipStates.TLevelStart<PlayerShip>(this);
+        ShipStates.TIsDead<PlayerShip> isDead = new ShipStates.TIsDead<PlayerShip>(this);
+        ShipStates.TReadyToReset<PlayerShip> readyToReset = new ShipStates.TReadyToReset<PlayerShip>(this);
         // 3 - definir o distino das transições
         levelStart.TargetState = sPlayerControlling;
-        isDead.TargetState = sPlayerExploding;
-        readyToReset.TargetState = sPlayerDead;
+        isDead.TargetState = SShipExploding;
+        readyToReset.TargetState = SShipDead;
         // 4 - adicionar as transições aos estados
-        sPlayerBegin.AddTransition(levelStart);
+        SShipBegin.AddTransition(levelStart);
         sPlayerControlling.AddTransition(isDead);
-        sPlayerExploding.AddTransition(readyToReset);
+        SShipExploding.AddTransition(readyToReset);
         // 5 - adicionar os estados à maquina de estados
-        stateMachine.AddState(sPlayerBegin);
+        stateMachine.AddState(SShipBegin);
         stateMachine.AddState(sPlayerControlling);
-        stateMachine.AddState(sPlayerExploding);
+        stateMachine.AddState(SShipExploding);
 
-        stateMachine.InitialState = sPlayerBegin;
+        stateMachine.InitialState = SShipBegin;
 
         stateMachine.Start();
     }
@@ -93,25 +101,36 @@ public class PlayerShip : MonoBehaviour, IShip
 	public void Fire ()
 	{
         GameObject firedBullet = objectPool.GetGameObjectFromPool();
-        firedBullet.transform.position += new Vector3(GetComponent<SpriteRenderer>().bounds.extents.x, 0);
+        firedBullet.GetComponent<Bullet>().Initialize(gameObject, settings);
+        ShipAudioRef.PlayFireSound();
 	}
     public void Move()
     {
         lerpT += displacementSpeed / 100.0f;
-        rigidbody.MovePosition( new Vector2(transform.position.x, Mathf.Lerp(lerpStartY, lerpTargetY, lerpT)));
+        RigidbodyRef.MovePosition( new Vector2(transform.position.x, Mathf.Lerp(lerpStartY, lerpTargetY, lerpT)));
     }
 	public void OnCollisionEnter2D(Collision2D col)
-	{
-		source.clip = explosion;
-		source.loop = false;
-		GetComponent<SpriteRenderer> ().sprite = dead;
-        GetComponent<Animator>().SetBool("Alive", false);
-		//GetComponent<Collider2D> ().enabled = false;
-		source.Play ();
-	}
+    {
+        if (col.gameObject.GetComponent<EnemyShip>())
+        {
+            HP = 0 ;
+        }
+    }
 
     public bool IsDead()
     {
-        return !GetComponent<Animator>().GetBool("Alive");
+        return HP <= 0;
+    }
+
+    public void Explode()
+    {
+        GetComponent<SpriteRenderer>().sprite = dead;
+        GetComponent<Animator>().SetBool("Alive", false);
+        ShipAudioRef.PlayExplosionSound();
+    }
+
+    public void TakeDamage(float value)
+    {
+        HP -= value;
     }
 }

@@ -1,16 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Wave : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+[System.Serializable]
+public enum ENEMY
+{
+    Fighter, Bomber
+}
+[System.Serializable]
+public struct EnemyGroup
+{
+    public ENEMY Type;
+    public int Count;
+}
+[System.Serializable]
+public class Wave 
+{
+    public EnemyGroup Group;
+	public float Interval;
+    public Wave()
+    {
+        Group = new EnemyGroup();
+    }
 }

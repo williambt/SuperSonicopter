@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-namespace PlayerStates
+namespace ShipStates
 {
-    public class SPlayerBegin<T> : State<T>
+    public class SShipBegin<T> : State<T>
     {
-        public SPlayerBegin(T Owner) : base(Owner)
+        public SShipBegin(T Owner) : base(Owner)
         {
 
         }
@@ -24,7 +24,7 @@ namespace PlayerStates
         }
         public override string GetStateName()
         {
-            return "PlayerBegin";
+            return "ShipBegin";
         }
     }
 }
