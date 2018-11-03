@@ -85,14 +85,16 @@ public abstract class wrmhlThread { // wrmhlThread is the common Thread for rece
 
 	public bool looping = true;
 
-	public void StopThread () { // This method is used to stop the thread.
+	public void StopThread () 
+	{ // This method is used to stop the thread.
  		lock (this) // avoid thread issues.
  		{
  		looping = false; // This var is used for the thread's while loop by the threadIsLooping method.
  		}
 	}
 
-	public bool threadIsLooping () { // This method is used to return to the thread looping's var value.
+	public bool threadIsLooping () 
+	{ // This method is used to return to the thread looping's var value.
  		lock (this) // avoid thread issues.
  	{
  		return looping;
@@ -115,8 +117,8 @@ public abstract class wrmhlThread { // wrmhlThread is the common Thread for rece
 		outputQueue.Enqueue (dataToSend);
 	}
 
-	public void ThreadLoop() { // Main thread loop
-
+	public void ThreadLoop() 
+	{ // Main thread loop
 		while (threadIsLooping ())
 		{
 			// read data

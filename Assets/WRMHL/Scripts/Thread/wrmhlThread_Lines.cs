@@ -36,8 +36,17 @@ public class wrmhlThread_Lines : wrmhlThread { // wrmhlThread_ReadLines is deriv
 	public wrmhlThread_Lines(string portName, int baudRate) : base(portName, baudRate){
 	}
 
-	public override string ReadProtocol() { // This is the only one reading protocol for 0.1 Alpha. This is a basique SerialPort ReadLine() method.
-			return deviceSerial.ReadLine();
+	public override string ReadProtocol() 
+	{ // This is the only one reading protocol for 0.1 Alpha. This is a basique SerialPort ReadLine() method.
+		string data = null;
+		try
+		{
+			data = deviceSerial.ReadLine();
+		}
+		catch(System.Exception)
+		{
+		}
+		return data;
 	}
 
 	public override void SendProtocol(object message) { // This is the only one writing protocol for 0.1 Alpha. This is a basique SerialPort WriteLine() method.
