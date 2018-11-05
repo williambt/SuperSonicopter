@@ -23,7 +23,7 @@ public class EnemyShip : MonoBehaviour, IShip
     void Start ()
     {
         HP = MaxHP;
-        
+
         RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         ShipAudioRef = gameObject.GetComponent<ShipAudio>();
         // inicialização da state machine
@@ -59,6 +59,13 @@ public class EnemyShip : MonoBehaviour, IShip
     {
 		stateMachine.Update ();
 	}
+    void Update()
+    {
+        if (ShouldBlink)
+        {
+            Blink();
+        }
+    }
     public bool IsDead()
     {
         return HP <= 0;
@@ -77,8 +84,26 @@ public class EnemyShip : MonoBehaviour, IShip
         ShipAudioRef.PlayExplosionSound();
     }
 
+
+    float TakeDamageClock = 0;
+    bool ShouldBlink = false;
+    float TakeDamageBlinkLimit = 0.1f;
+    Color BlinkColor = new Color(255, 250, 0);
     public void TakeDamage(float value)
     {
         HP -= value;
+        ShouldBlink = true;
+        GetComponent<SpriteRenderer>().material.SetFloat("_ShouldBlink", 1);
+
+    }
+    void Blink()
+    {
+        TakeDamageClock += Time.deltaTime;
+        if (TakeDamageClock >= TakeDamageBlinkLimit)
+        {
+            ShouldBlink = false;
+            TakeDamageClock = 0;
+            GetComponent<SpriteRenderer>().material.SetFloat("_ShouldBlink", 0);
+        }
     }
 }

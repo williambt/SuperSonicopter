@@ -125,6 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0156086c5112d5498d786935a4f4762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 2.5
+  Aperture: 0.5
+  VertexOffset: 0
+  xOffset: 0
 --- !u!114 &114216601252378844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,7 +172,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d346b5645ae20b244883da0c5e652e4d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
