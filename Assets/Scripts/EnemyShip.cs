@@ -29,7 +29,10 @@ public class EnemyShip : MonoBehaviour, IShip
         RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         ShipAudioRef = gameObject.GetComponent<ShipAudio>();
 
-        Pool = new ObjectPool(Bullet,gameObject.transform, 10); 
+        Pool = new ObjectPool(Bullet,gameObject.transform, 10);
+
+
+
         // inicialização da state machine
         stateMachine = new StateMachine<EnemyShip>(this);
 		// 1 - criar estados

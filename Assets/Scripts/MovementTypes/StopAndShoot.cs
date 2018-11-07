@@ -14,15 +14,11 @@ class StopAndShoot : MovementType
     }
     float Clock = 0;
     float ShootInterval = 0.5f;
-    Vector2 force = Vector2.zero;
+    bool HasStopped = false;
+
     public override void Move(Rigidbody2D rigidbody2DRef)
     {
-        if (force.magnitude < 0.01f)
-        {
-            force = Steerings.Arrive(gameObject, TargetPos);
-            rigidbody2DRef.AddForce(force);
-        }
-        else
+        if (HasStopped)
         {
             rigidbody2DRef.velocity = Vector2.zero;
             Clock += Time.deltaTime;
@@ -32,6 +28,16 @@ class StopAndShoot : MovementType
                 shipRef.Fire();
             }
         }
+        else
+        {
+            Vector2 force = Steerings.Arrive(gameObject, TargetPos);
+            rigidbody2DRef.AddForce(force);
+            if (force.magnitude < 0.01f)
+            {
+                HasStopped = true;
+            }
+        }
+
     }
 }
 
