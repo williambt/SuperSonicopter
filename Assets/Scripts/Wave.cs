@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-public enum ENEMY
+public enum ENEMYTYPE
 {
-    Fighter, Bomber
+    Helicopter, Zeppelin
 }
 [System.Serializable]
 public struct EnemyGroup
 {
-    public ENEMY Type;
     public int Count;
 }
 [System.Serializable]
 public class Wave 
 {
-    public EnemyGroup Group;
+    public ENEMYTYPE EnemyType;
+    public int EnemyCount;
+    public Vector2 Position;
+    public MovementType Movement;
+    public float SpawnDelay;
 	public float Interval;
     public Wave()
     {
-        Group = new EnemyGroup();
+        //Group = new EnemyGroup();
     }
 }

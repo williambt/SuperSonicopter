@@ -58,6 +58,10 @@ public class EnemyShip : MonoBehaviour, IShip
 	void FixedUpdate ()
     {
 		stateMachine.Update ();
+        if(GetComponent<MovementType>().GetType() == typeof(LinearMovement))
+        {
+            print(GetComponent<SpriteRenderer>().sprite);
+        }
 	}
     public bool IsDead()
     {
