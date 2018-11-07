@@ -6,18 +6,20 @@ public class EnemyShip : MonoBehaviour, IShip
 {
 	[Header("Style")]
 	public GameObject Bullet;
-    public Sprite dead;
+    public BulletSettings Settings;
+    public Sprite Dead;
     public float MaxHP;
 
     [HideInInspector]
 	public Rigidbody2D RigidbodyRef;
-	ObjectPool ObjectPool;
+	ObjectPool Pool;
     ShipAudio ShipAudioRef;
 
     [HideInInspector]
 	public StateMachine<EnemyShip> stateMachine;
 
 	MovementType MoveType;
+
 
     float HP { get; set; }
     void Start ()
@@ -26,6 +28,8 @@ public class EnemyShip : MonoBehaviour, IShip
 
         RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         ShipAudioRef = gameObject.GetComponent<ShipAudio>();
+
+        Pool = new ObjectPool(Bullet,gameObject.transform, 10); 
         // inicialização da state machine
         stateMachine = new StateMachine<EnemyShip>(this);
 		// 1 - criar estados
@@ -79,7 +83,7 @@ public class EnemyShip : MonoBehaviour, IShip
     }
     public void Explode()
     {
-        GetComponent<SpriteRenderer>().sprite = dead;
+        GetComponent<SpriteRenderer>().sprite = Dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
     }
@@ -104,6 +108,18 @@ public class EnemyShip : MonoBehaviour, IShip
             ShouldBlink = false;
             TakeDamageClock = 0;
             GetComponent<SpriteRenderer>().material.SetFloat("_ShouldBlink", 0);
+        }
+    }
+    public void Fire()
+    {
+        GameObject firedBullet = Pool.GetGameObjectFromPool();
+        GameObject playerRef = GameObject.FindGameObjectWithTag("Player");
+        if (playerRef != null)
+        {
+            Settings.Dir = playerRef.transform.position - transform.position;
+            Settings.Dir.Normalize();
+            firedBullet.GetComponent<Bullet>().Initialize(gameObject, Settings);
+            ShipAudioRef.PlayFireSound();
         }
     }
 }
