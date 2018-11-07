@@ -300,6 +300,25 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37c0bcad68986bd41b89069bd0088001, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &70253579 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1360303131804364, guid: dac253219a9c94242b2613fb0666057d,
+    type: 2}
+  m_PrefabInternal: {fileID: 965981653}
+--- !u!114 &70253580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 70253579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca01cba8fbe846049a94958d24b0844e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DrawTrajectory: 1
+  MoveSpeed: 2.5
+  direction: {x: 0, y: -1}
 --- !u!1 &100121442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,11 +1475,19 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4387111774805770, guid: 4fd74134ef74bb94797046abc05b733d, type: 2}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: 8.27
+=======
+      value: 5.27
+>>>>>>> Emitter
       objectReference: {fileID: 0}
     - target: {fileID: 4387111774805770, guid: 4fd74134ef74bb94797046abc05b733d, type: 2}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD
       value: 3.97
+=======
+      value: 7.16
+>>>>>>> Emitter
       objectReference: {fileID: 0}
     - target: {fileID: 4387111774805770, guid: 4fd74134ef74bb94797046abc05b733d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1490,16 +1517,49 @@ Prefab:
       propertyPath: m_Name
       value: Zeppelin
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 4856477051159912, guid: 4fd74134ef74bb94797046abc05b733d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -8.17
+=======
+    - target: {fileID: 95764703417484486, guid: dac253219a9c94242b2613fb0666057d,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 95c8d5a0bb043ce4ebb7247ec301a5b3, type: 2}
+    - target: {fileID: 1360303131804364, guid: dac253219a9c94242b2613fb0666057d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+>>>>>>> Emitter
       objectReference: {fileID: 0}
     - target: {fileID: 4856477051159912, guid: 4fd74134ef74bb94797046abc05b733d, type: 2}
       propertyPath: m_LocalPosition.y
       value: -5.75
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4fd74134ef74bb94797046abc05b733d, type: 2}
+=======
+    - target: {fileID: 114064788770349196, guid: dac253219a9c94242b2613fb0666057d,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114064788770349196, guid: dac253219a9c94242b2613fb0666057d,
+        type: 2}
+      propertyPath: DrawTrajectory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212098768801122220, guid: dac253219a9c94242b2613fb0666057d,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0f41fc326bc557140925f6529255c498,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 114064788770349196, guid: dac253219a9c94242b2613fb0666057d, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: dac253219a9c94242b2613fb0666057d, type: 2}
+>>>>>>> Emitter
   m_IsPrefabParent: 0
 --- !u!1 &974217682
 GameObject:
@@ -2524,6 +2584,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
+        type: 2}
+      propertyPath: Waves.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4885312686361754, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2574,6 +2639,21 @@ Prefab:
     - target: {fileID: 82497022092881908, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
         type: 2}
       propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
+        type: 2}
+      propertyPath: Waves.Array.data[0].Group.Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
+        type: 2}
+      propertyPath: WaveFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 063769d1e88864d45bdb194877e4ee74, type: 3}
+    - target: {fileID: 82497022092881908, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4315,11 +4395,19 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4443444790103934, guid: af8922a64777f0547a9164ac7f909f4c, type: 2}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: 6.55
       objectReference: {fileID: 0}
     - target: {fileID: 4443444790103934, guid: af8922a64777f0547a9164ac7f909f4c, type: 2}
       propertyPath: m_LocalPosition.y
       value: 2.81
+=======
+      value: 10.074277
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443444790103934, guid: af8922a64777f0547a9164ac7f909f4c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5.29
+>>>>>>> Emitter
       objectReference: {fileID: 0}
     - target: {fileID: 4443444790103934, guid: af8922a64777f0547a9164ac7f909f4c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4349,10 +4437,10 @@ Prefab:
         type: 2}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 2e9279dec6bfd284385ff2f9d15e38f1, type: 2}
+      objectReference: {fileID: 9100000, guid: 71aae77fd0331cd469a3519611d2d86a, type: 2}
     - target: {fileID: 1252358578441540, guid: af8922a64777f0547a9164ac7f909f4c, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114568656837726822, guid: af8922a64777f0547a9164ac7f909f4c,
         type: 2}
@@ -4372,7 +4460,28 @@ Prefab:
     - target: {fileID: 114003391346568954, guid: af8922a64777f0547a9164ac7f909f4c,
         type: 2}
       propertyPath: xOffset
-      value: -2.5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114003391346568954, guid: af8922a64777f0547a9164ac7f909f4c,
+        type: 2}
+      propertyPath: Aperture
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 114003391346568954, guid: af8922a64777f0547a9164ac7f909f4c,
+        type: 2}
+      propertyPath: DrawTrajectory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212200261903794182, guid: af8922a64777f0547a9164ac7f909f4c,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eb24a76cac08c0648bda2774ad46f0ef,
+        type: 3}
+    - target: {fileID: 60265572670230952, guid: af8922a64777f0547a9164ac7f909f4c,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 212200261903794182, guid: af8922a64777f0547a9164ac7f909f4c,
         type: 2}

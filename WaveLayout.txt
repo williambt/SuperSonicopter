@@ -1,0 +1,8 @@
+#comment
+#layout
+#[sprite] [count] [x] [y] [movetype] [speed]   [params]  [spawndelay] [nextwavedelay]
+helicopter   5     6   5   parabola    2.5     0.36 0 0       2             15
+
+#examples
+zeppelin 1 6 3 linear 2.5 -1 0 0 0
+zeppelin 1 6 -3 linear 2.5 -1 0 0 10
