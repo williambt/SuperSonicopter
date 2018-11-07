@@ -17,7 +17,9 @@ public class WaveEmitter : MonoBehaviour
 
     public TextAsset WaveFile;
 
-	ObjectPool Pool;
+	ObjectPool HeliPool;
+    ObjectPool ZeppelinPool;
+
 
     GameObject EnemyParent = null;
 
@@ -28,7 +30,9 @@ public class WaveEmitter : MonoBehaviour
             EnemyParent = new GameObject("Enemies");
         }
         Waves = new List<Wave>();
-		Pool = new ObjectPool (Helicopter, gameObject.transform,30);
+        HeliPool = new ObjectPool (Helicopter, gameObject.transform,30);
+        ZeppelinPool = new ObjectPool(Zeppelin, gameObject.transform, 30);
+
         ParseWavesFile();
         StartSpawning();
 		// passar classe de movimento pro inimigo na criação.
@@ -56,9 +60,9 @@ public class WaveEmitter : MonoBehaviour
         {
             if (Clock >= Waves[CurrentIndex].Interval)
             {
-                CurrentIndex++;
-                if(CurrentIndex < Waves.Count)
+                if(CurrentIndex + 1 < Waves.Count)
                 {
+                    CurrentIndex++;
                     StartSpawning();
                 }
             }
@@ -77,15 +81,14 @@ public class WaveEmitter : MonoBehaviour
 
     void Spawn(Wave wave)
     {
-        GameObject enemy = Pool.GetGameObjectFromPool();
-        enemy.transform.parent = EnemyParent.transform;
-        enemy.transform.position = wave.Position;
-        DestroyImmediate(enemy.GetComponent<MovementType>());
+        GameObject enemy = null;
+        
         switch(wave.EnemyType)
         {
             case ENEMYTYPE.Helicopter:
                 {
                     //Setup movement
+                    enemy = HeliPool.GetGameObjectFromPool();
                     ParabolaMovement pm = enemy.AddComponent<ParabolaMovement>();
                     ParabolaMovement wavePm = (ParabolaMovement)wave.Movement;
                     pm.MoveSpeed = wavePm.MoveSpeed;
@@ -107,6 +110,7 @@ public class WaveEmitter : MonoBehaviour
                 }
             case ENEMYTYPE.Zeppelin:
                 {
+                    enemy = ZeppelinPool.GetGameObjectFromPool();
                     //Setup movement
                     LinearMovement lm = enemy.AddComponent<LinearMovement>();
                     LinearMovement waveLm = (LinearMovement)wave.Movement;
@@ -128,6 +132,9 @@ public class WaveEmitter : MonoBehaviour
             default:
                 break;
         }
+        enemy.transform.parent = EnemyParent.transform;
+        enemy.transform.position = wave.Position;
+        DestroyImmediate(enemy.GetComponent<MovementType>());
         enemy.GetComponent<EnemyShip>().MaxHP = 100;
     }
 
