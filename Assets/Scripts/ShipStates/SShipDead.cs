@@ -18,7 +18,7 @@ namespace ShipStates
 
         public override void EntryAction()
         {
-			Debug.Log("entrou no Dead");
+//			Debug.Log("entrou no Dead");
 			spriteRef.gameObject.SetActive(false);
         }
 

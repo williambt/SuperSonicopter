@@ -9,7 +9,7 @@ public class StateMachine<T>
     public T Owner { get; set; }
 
     public State<T> InitialState { get; set; }
-    State<T> CurrentState { get; set; }
+    public State<T> CurrentState { get; set; }
 
     public StateMachine(T owner)
     {

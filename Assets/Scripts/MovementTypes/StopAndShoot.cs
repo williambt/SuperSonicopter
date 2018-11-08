@@ -34,15 +34,14 @@ class StopAndShoot : MovementType
             Vector2 force = Steerings.Arrive(gameObject, TargetPos);
             Vector2 Result = new Vector2();
             Vector2 ToTarget = TargetPos - new Vector2(transform.position.x, transform.position.y);
-            float desaceleration = 0.5f;
             if (ToTarget.magnitude > 0)
             {
-                float speed = ToTarget.magnitude / desaceleration;
+				float speed = ToTarget.magnitude / Desaceleration;
                 speed = Mathf.Clamp(speed, 0, MaxSpeed);
                 Result = ToTarget * speed / ToTarget.magnitude;
             }
             rigidbody2DRef.AddForce(Result - GetComponent<Rigidbody2D>().velocity);
-            if (force.magnitude < 0.01f)
+            if (force.magnitude < 0.05f)
             {
                 HasStopped = true;
             }

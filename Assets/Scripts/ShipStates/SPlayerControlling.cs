@@ -46,7 +46,6 @@ namespace ShipStates
             else
             {
                 string fire = player.device.Read();
-				Debug.Log (fire);
                 if (fire == null)
                 {
                     return;
@@ -73,7 +72,7 @@ namespace ShipStates
 
         public override void EntryAction()
         {
-            Debug.Log("entrou no controlling");
+//            Debug.Log("entrou no controlling");
         }
 
 

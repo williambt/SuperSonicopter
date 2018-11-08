@@ -20,8 +20,7 @@ public class EnemyShip : MonoBehaviour, IShip
 
 	MovementType MoveType;
 
-
-    float HP { get; set; }
+    public float HP { get; set; }
     void Start ()
     {
         HP = MaxHP;
@@ -62,10 +61,6 @@ public class EnemyShip : MonoBehaviour, IShip
 	void FixedUpdate ()
     {
 		stateMachine.Update ();
-        if(GetComponent<MovementType>().GetType() == typeof(LinearMovement))
-        {
-            print(GetComponent<SpriteRenderer>().sprite);
-        }
 	}
     void Update()
     {

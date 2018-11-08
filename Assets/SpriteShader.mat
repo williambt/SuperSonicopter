@@ -79,7 +79,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BlinkColor: {r: 0.9339623, g: 0.066082224, b: 0.066082224, a: 0.11764706}
+    - _BlinkColor: {r: 0.875, g: 0.1865809, b: 0.22931035, a: 0.055}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}

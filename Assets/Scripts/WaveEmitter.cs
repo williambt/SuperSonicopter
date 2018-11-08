@@ -30,17 +30,17 @@ public class WaveEmitter : MonoBehaviour
             EnemyParent = new GameObject("Enemies");
         }
         Waves = new List<Wave>();
-        HeliPool = new ObjectPool (Helicopter, gameObject.transform,30);
-        ZeppelinPool = new ObjectPool(Zeppelin, gameObject.transform, 30);
+        HeliPool = new ObjectPool (Helicopter, transform, 30);
+        ZeppelinPool = new ObjectPool(Zeppelin, transform, 30);
 
         ParseWavesFile();
         StartSpawning();
 		// passar classe de movimento pro inimigo na criação.
 	}
 	
-	void Update () 
+	void FixedUpdate () 
 	{
-        Clock += Time.deltaTime;
+		Clock += Time.fixedDeltaTime;
         if (Spawning)
         {
             if (CurrentWaveSpawned >= Waves[CurrentIndex].EnemyCount)
@@ -89,59 +89,65 @@ public class WaveEmitter : MonoBehaviour
                 {
                     //Setup movement
                     enemy = HeliPool.GetGameObjectFromPool();
-                    DestroyImmediate(enemy.GetComponent<MovementType>());
-
-                    ParabolaMovement pm = enemy.AddComponent<ParabolaMovement>();
+					
+					ParabolaMovement pm = enemy.GetComponent<ParabolaMovement>();
                     ParabolaMovement wavePm = (ParabolaMovement)wave.Movement;
                     pm.MoveSpeed = wavePm.MoveSpeed;
                     pm.Aperture = wavePm.Aperture;
                     pm.VertexOffset = wavePm.VertexOffset;
                     pm.xOffset = wavePm.xOffset;
-                    //Setup graphics
-                    SpriteRenderer enemySR = enemy.GetComponent<SpriteRenderer>();
-                    SpriteRenderer heliSR = Helicopter.GetComponent<SpriteRenderer>();
-                    enemySR.sprite = heliSR.sprite;
-                    Animator enemyAnimator = enemy.GetComponent<Animator>();
-                    Animator heliAnimator = Helicopter.GetComponent<Animator>();
-                    enemyAnimator.runtimeAnimatorController = heliAnimator.runtimeAnimatorController;
-                    enemyAnimator.Rebind();
-                    //Setup collider
-                    PolygonCollider2D enemyCol = enemy.GetComponent<PolygonCollider2D>();
-                    PolygonCollider2D heliCol = Helicopter.GetComponent<PolygonCollider2D>();
-                    enemyCol.points = heliCol.points;
+//                    //Setup graphics
+//                    SpriteRenderer enemySR = enemy.GetComponent<SpriteRenderer>();
+//                    SpriteRenderer heliSR = Helicopter.GetComponent<SpriteRenderer>();
+//                    enemySR.sprite = heliSR.sprite;
+				Animator enemyAnimator = enemy.GetComponent<Animator>();
+				enemyAnimator.Rebind ();
+				enemyAnimator.SetBool ("Alive", true);
+				//Animator heliAnimator = Helicopter.GetComponent<Animator>();
+//                    enemyAnimator.runtimeAnimatorController = heliAnimator.runtimeAnimatorController;
+//                    enemyAnimator.Rebind();
+//                    //Setup collider
+//                    PolygonCollider2D enemyCol = enemy.GetComponent<PolygonCollider2D>();
+//                    PolygonCollider2D heliCol = Helicopter.GetComponent<PolygonCollider2D>();
+//                    enemyCol.points = heliCol.points;
                     break;
                 }
             case ENEMYTYPE.Zeppelin:
                 {
                     enemy = ZeppelinPool.GetGameObjectFromPool();
-                    DestroyImmediate(enemy.GetComponent<MovementType>());
 
-                    //Setup movement
-                    StopAndShoot lm = enemy.AddComponent<StopAndShoot>();
-                    StopAndShoot waveLm = (StopAndShoot)wave.Movement;
-                    lm.MaxSpeed = waveLm.MaxSpeed;
-                    lm.Desaceleration = waveLm.Desaceleration;
-                    lm.TargetPos = waveLm.TargetPos;
-                    //Setup graphics
-                    SpriteRenderer enemySR = enemy.GetComponent<SpriteRenderer>();
-                    SpriteRenderer zepSR = Zeppelin.GetComponent<SpriteRenderer>();
-                    enemySR.sprite = zepSR.sprite;
-                    Animator enemyAnimator = enemy.GetComponent<Animator>();
-                    Animator zepAnimator = Zeppelin.GetComponent<Animator>();
-                    enemyAnimator.runtimeAnimatorController = zepAnimator.runtimeAnimatorController;
-                    enemyAnimator.Rebind();
-                    //Setup collider
-                    PolygonCollider2D enemyCol = enemy.GetComponent<PolygonCollider2D>();
-                    PolygonCollider2D zepCol = Zeppelin.GetComponent<PolygonCollider2D>();
-                    enemyCol.points = zepCol.points;
+//                    //Setup movement
+				StopAndShoot lm = enemy.GetComponent<StopAndShoot>();
+                      StopAndShoot waveLm = (StopAndShoot)wave.Movement;
+                      lm.MaxSpeed = waveLm.MaxSpeed;
+                      lm.Desaceleration = waveLm.Desaceleration;
+                      lm.TargetPos = waveLm.TargetPos;
+//                    //Setup graphics
+//                    SpriteRenderer enemySR = enemy.GetComponent<SpriteRenderer>();
+//                    SpriteRenderer zepSR = Zeppelin.GetComponent<SpriteRenderer>();
+//                    enemySR.sprite = zepSR.sprite;
+				Animator enemyAnimator = enemy.GetComponent<Animator>();
+				enemyAnimator.Rebind ();
+				enemyAnimator.SetBool ("Alive", true);
+				//Animator zepAnimator = Zeppelin.GetComponent<Animator>().Rebind();
+//                    enemyAnimator.runtimeAnimatorController = zepAnimator.runtimeAnimatorController;
+//                    enemyAnimator.Rebind();
+//                    //Setup collider
+//                    PolygonCollider2D enemyCol = enemy.GetComponent<PolygonCollider2D>();
+//                    PolygonCollider2D zepCol = Zeppelin.GetComponent<PolygonCollider2D>();
+//                    enemyCol.points = zepCol.points;
                     break;
                 }
             default:
                 break;
         }
+		enemy.GetComponent<EnemyShip>().HP = enemy.GetComponent<EnemyShip>().MaxHP;
+		if (enemy.GetComponent<EnemyShip> ().stateMachine != null) 
+		{
+			enemy.GetComponent<EnemyShip> ().stateMachine.Start ();
+		}
         enemy.transform.parent = EnemyParent.transform;
         enemy.transform.position = wave.Position;
-        enemy.GetComponent<EnemyShip>().MaxHP = 100;
     }
 
     void ParseWavesFile()

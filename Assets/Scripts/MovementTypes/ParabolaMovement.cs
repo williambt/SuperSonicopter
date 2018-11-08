@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
 class ParabolaMovement : MovementType
 {
@@ -24,33 +24,33 @@ class ParabolaMovement : MovementType
         return new Vector2(Aperture * Mathf.Pow(pos.y, 2) + VertexOffset * pos.y + xOffset, pos.y);
     }
 
-    void OnDrawGizmos()
-    {
-        if (enabled)
-        {
-            float yDelta = 0.25f;
-
-            float xpos = GetPosition(transform.position).x;
-
-            if (transform.position.x != xpos)
-                transform.position = new Vector3(xpos, transform.position.y, transform.position.z);
-
-            if (DrawTrajectory)
-            {
-                Gizmos.color = Color.red;
-
-                float x = 0;
-                for (float y = transform.position.y; y >= Camera.main.transform.position.y - Camera.main.orthographicSize - yDelta; y -= yDelta)
-                {
-                    float tempx = x;
-                    x = GetPosition(new Vector2(0, y)).x;
-                    if (y != transform.position.y)
-                    {
-                        Gizmos.DrawLine(new Vector3(tempx, y + yDelta, 0), new Vector3(x, y, 0));
-                    }
-                }
-            }
-        }
-    }
+//    void OnDrawGizmos()
+//    {
+//        if (enabled)
+//        {
+//            float yDelta = 0.25f;
+//
+//            float xpos = GetPosition(transform.position).x;
+//
+//            if (transform.position.x != xpos)
+//                transform.position = new Vector3(xpos, transform.position.y, transform.position.z);
+//
+//            if (DrawTrajectory)
+//            {
+//                Gizmos.color = Color.red;
+//
+//                float x = 0;
+//                for (float y = transform.position.y; y >= Camera.main.transform.position.y - Camera.main.orthographicSize - yDelta; y -= yDelta)
+//                {
+//                    float tempx = x;
+//                    x = GetPosition(new Vector2(0, y)).x;
+//                    if (y != transform.position.y)
+//                    {
+//                        Gizmos.DrawLine(new Vector3(tempx, y + yDelta, 0), new Vector3(x, y, 0));
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 

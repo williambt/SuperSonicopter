@@ -16,7 +16,7 @@ namespace ShipStates
         public override void EntryAction()
         {
             //base.EntryAction();
-            Debug.Log("entrou no estado inicial");
+//            Debug.Log("entrou no estado inicial");
         }
         public override void ExitAction()
         {

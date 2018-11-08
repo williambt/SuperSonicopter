@@ -113,7 +113,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114415930620051842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,7 +174,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d346b5645ae20b244883da0c5e652e4d, type: 2}
   m_StaticBatchInfo:
