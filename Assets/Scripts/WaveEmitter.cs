@@ -89,6 +89,8 @@ public class WaveEmitter : MonoBehaviour
                 {
                     //Setup movement
                     enemy = HeliPool.GetGameObjectFromPool();
+                    DestroyImmediate(enemy.GetComponent<MovementType>());
+
                     ParabolaMovement pm = enemy.AddComponent<ParabolaMovement>();
                     ParabolaMovement wavePm = (ParabolaMovement)wave.Movement;
                     pm.MoveSpeed = wavePm.MoveSpeed;
@@ -102,6 +104,7 @@ public class WaveEmitter : MonoBehaviour
                     Animator enemyAnimator = enemy.GetComponent<Animator>();
                     Animator heliAnimator = Helicopter.GetComponent<Animator>();
                     enemyAnimator.runtimeAnimatorController = heliAnimator.runtimeAnimatorController;
+                    enemyAnimator.Rebind();
                     //Setup collider
                     PolygonCollider2D enemyCol = enemy.GetComponent<PolygonCollider2D>();
                     PolygonCollider2D heliCol = Helicopter.GetComponent<PolygonCollider2D>();
@@ -111,11 +114,14 @@ public class WaveEmitter : MonoBehaviour
             case ENEMYTYPE.Zeppelin:
                 {
                     enemy = ZeppelinPool.GetGameObjectFromPool();
+                    DestroyImmediate(enemy.GetComponent<MovementType>());
+
                     //Setup movement
-                    LinearMovement lm = enemy.AddComponent<LinearMovement>();
-                    LinearMovement waveLm = (LinearMovement)wave.Movement;
-                    lm.MoveSpeed = waveLm.MoveSpeed;
-                    lm.direction = waveLm.direction;
+                    StopAndShoot lm = enemy.AddComponent<StopAndShoot>();
+                    StopAndShoot waveLm = (StopAndShoot)wave.Movement;
+                    lm.MaxSpeed = waveLm.MaxSpeed;
+                    lm.Desaceleration = waveLm.Desaceleration;
+                    lm.TargetPos = waveLm.TargetPos;
                     //Setup graphics
                     SpriteRenderer enemySR = enemy.GetComponent<SpriteRenderer>();
                     SpriteRenderer zepSR = Zeppelin.GetComponent<SpriteRenderer>();
@@ -123,6 +129,7 @@ public class WaveEmitter : MonoBehaviour
                     Animator enemyAnimator = enemy.GetComponent<Animator>();
                     Animator zepAnimator = Zeppelin.GetComponent<Animator>();
                     enemyAnimator.runtimeAnimatorController = zepAnimator.runtimeAnimatorController;
+                    enemyAnimator.Rebind();
                     //Setup collider
                     PolygonCollider2D enemyCol = enemy.GetComponent<PolygonCollider2D>();
                     PolygonCollider2D zepCol = Zeppelin.GetComponent<PolygonCollider2D>();
@@ -134,7 +141,6 @@ public class WaveEmitter : MonoBehaviour
         }
         enemy.transform.parent = EnemyParent.transform;
         enemy.transform.position = wave.Position;
-        DestroyImmediate(enemy.GetComponent<MovementType>());
         enemy.GetComponent<EnemyShip>().MaxHP = 100;
     }
 
@@ -173,6 +179,15 @@ public class WaveEmitter : MonoBehaviour
                         LinearMovement lm = (LinearMovement)wave.Movement;
                         lm.MoveSpeed = float.Parse(els[5]);
                         lm.direction = new Vector2(float.Parse(els[6]), float.Parse(els[7]));
+                        break;
+                    case "stopshoot":
+                        wave.Movement = new StopAndShoot();
+                        StopAndShoot sm = (StopAndShoot)wave.Movement;
+                        sm.TargetPos = new Vector2();
+                        sm.TargetPos.x = float.Parse(els[6]);
+                        sm.TargetPos.y = float.Parse(els[7]);
+                        sm.MaxSpeed = float.Parse(els[5]);
+                        sm.Desaceleration = float.Parse(els[8]);
                         break;
                     default:
                         break;

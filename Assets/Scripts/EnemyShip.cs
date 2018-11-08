@@ -30,9 +30,6 @@ public class EnemyShip : MonoBehaviour, IShip
         ShipAudioRef = gameObject.GetComponent<ShipAudio>();
 
         Pool = new ObjectPool(Bullet,gameObject.transform, 10);
-
-
-
         // inicialização da state machine
         stateMachine = new StateMachine<EnemyShip>(this);
 		// 1 - criar estados
@@ -98,7 +95,7 @@ public class EnemyShip : MonoBehaviour, IShip
 
     float TakeDamageClock = 0;
     bool ShouldBlink = false;
-    float TakeDamageBlinkLimit = 0.1f;
+    float TakeDamageBlinkLimit = 0.05f;
     Color BlinkColor = new Color(255, 250, 0);
     public void TakeDamage(float value)
     {
