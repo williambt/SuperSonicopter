@@ -20,7 +20,7 @@ namespace ShipStates
             if (ship != null)
             {
                 ship.Explode();
-                Debug.Log("entrou com sucesso no exploding");
+//                Debug.Log("entrou com sucesso no exploding");
             }
         }
 

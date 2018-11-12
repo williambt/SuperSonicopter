@@ -6,12 +6,13 @@ public class EnemyShip : MonoBehaviour, IShip
 {
 	[Header("Style")]
 	public GameObject Bullet;
-    public Sprite dead;
+    public BulletSettings Settings;
+    public Sprite Dead;
     public float MaxHP;
 
     [HideInInspector]
 	public Rigidbody2D RigidbodyRef;
-	ObjectPool ObjectPool;
+	ObjectPool Pool;
     ShipAudio ShipAudioRef;
 
     [HideInInspector]
@@ -19,13 +20,15 @@ public class EnemyShip : MonoBehaviour, IShip
 
 	MovementType MoveType;
 
-    float HP { get; set; }
+    public float HP { get; set; }
     void Start ()
     {
         HP = MaxHP;
-        
+
         RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         ShipAudioRef = gameObject.GetComponent<ShipAudio>();
+
+        Pool = new ObjectPool(Bullet,gameObject.transform, 10);
         // inicialização da state machine
         stateMachine = new StateMachine<EnemyShip>(this);
 		// 1 - criar estados
@@ -59,6 +62,13 @@ public class EnemyShip : MonoBehaviour, IShip
     {
 		stateMachine.Update ();
 	}
+    void Update()
+    {
+        if (ShouldBlink)
+        {
+            Blink();
+        }
+    }
     public bool IsDead()
     {
         return HP <= 0;
@@ -72,13 +82,43 @@ public class EnemyShip : MonoBehaviour, IShip
     }
     public void Explode()
     {
-        GetComponent<SpriteRenderer>().sprite = dead;
+        GetComponent<SpriteRenderer>().sprite = Dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
     }
 
+
+    float TakeDamageClock = 0;
+    bool ShouldBlink = false;
+    float TakeDamageBlinkLimit = 0.05f;
+    Color BlinkColor = new Color(255, 250, 0);
     public void TakeDamage(float value)
     {
         HP -= value;
+        ShouldBlink = true;
+        GetComponent<SpriteRenderer>().material.SetFloat("_ShouldBlink", 1);
+
+    }
+    void Blink()
+    {
+        TakeDamageClock += Time.deltaTime;
+        if (TakeDamageClock >= TakeDamageBlinkLimit)
+        {
+            ShouldBlink = false;
+            TakeDamageClock = 0;
+            GetComponent<SpriteRenderer>().material.SetFloat("_ShouldBlink", 0);
+        }
+    }
+    public void Fire()
+    {
+        GameObject firedBullet = Pool.GetGameObjectFromPool();
+        GameObject playerRef = GameObject.FindGameObjectWithTag("Player");
+        if (playerRef != null)
+        {
+            Settings.Dir = playerRef.transform.position - transform.position;
+            Settings.Dir.Normalize();
+            firedBullet.GetComponent<Bullet>().Initialize(gameObject, Settings);
+            ShipAudioRef.PlayFireSound();
+        }
     }
 }

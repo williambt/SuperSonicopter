@@ -49,10 +49,10 @@ public class Bullet : MonoBehaviour
         CameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         RendererRef = GetComponent<Renderer>();
         RigidbodyRef = GetComponent<Rigidbody2D>();
-        //RigidbodyRef.MovePosition(owner.transform.position + (new Vector3(settings.Dir.x, settings.Dir.y,0.0f) * 10));
-        //RigidbodyRef.MovePosition(new Vector2(10000, 10000));
-        transform.position = owner.transform.position + new Vector3(settings.Dir.x, settings.Dir.y,0.0f);
+        Vector2 ShootOffset = GetComponent<SpriteRenderer>().bounds.extents;
 
+        transform.position = (owner.transform.position) + (new Vector3(settings.Dir.x * ShootOffset.x, settings.Dir.y * ShootOffset.y ,0.0f) * 20);
+        transform.up = settings.Dir;
         GetComponent<CircleCollider2D>().enabled = true;
         this.Settings = settings;
     }
