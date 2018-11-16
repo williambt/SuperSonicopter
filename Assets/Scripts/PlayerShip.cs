@@ -49,16 +49,16 @@ public class PlayerShip : MonoBehaviour, IShip
 
     float HP { get; set; }
 
-
-
-    
+    public void Awake()
+    {
+        device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
+        keyboardMode = !device.IsConnected();
+    }
     // Use this for initialization
     void Start ()
     {
         yStart = transform.position.y;
-        device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
 		ShipAudioRef = gameObject.GetComponent<ShipAudio> ();
-        keyboardMode = !device.IsConnected();
         RigidbodyRef = gameObject.GetComponent<Rigidbody2D>();
         objectPool = new ObjectPool(bullet, transform, maxBulletsOnScreen);
 
@@ -132,5 +132,9 @@ public class PlayerShip : MonoBehaviour, IShip
     public void TakeDamage(float value)
     {
         HP -= value;
+    }
+    public string ReadInput()
+    {
+        return device.Read();
     }
 }

@@ -45,7 +45,7 @@ namespace ShipStates
             }
             else
             {
-                string fire = player.device.Read();
+                string fire = player.ReadInput();
                 if (fire == null)
                 {
                     return;

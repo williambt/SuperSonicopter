@@ -33,11 +33,6 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        if (!RendererExtensions.IsVisibleFrom(RendererRef, CameraRef))
-        {
-            GetComponent<CircleCollider2D>().enabled = false;
-            gameObject.SetActive(false);
-        }
     }
     private void FixedUpdate()
     {
@@ -62,6 +57,14 @@ public class Bullet : MonoBehaviour
         if (shipcolider != null)
         {
             shipcolider.TakeDamage(Settings.DamageValue);
+            GetComponent<CircleCollider2D>().enabled = false;
+            gameObject.SetActive(false);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Bounds")
+        {
             GetComponent<CircleCollider2D>().enabled = false;
             gameObject.SetActive(false);
         }
