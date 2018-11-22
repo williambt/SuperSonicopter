@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public enum ENEMYTYPE
 {
-    Helicopter, Zeppelin
+    Helicopter, Zeppelin, Kamikaze
 }
 [System.Serializable]
 public struct EnemyGroup

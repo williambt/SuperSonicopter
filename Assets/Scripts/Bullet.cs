@@ -46,8 +46,8 @@ public class Bullet : MonoBehaviour
         RendererRef = GetComponent<Renderer>();
         RigidbodyRef = GetComponent<Rigidbody2D>();
         Vector2 ShootOffset = GetComponent<SpriteRenderer>().bounds.extents;
-
-        transform.position = (owner.transform.position) + (new Vector3(settings.Dir.x * ShootOffset.x, settings.Dir.y * ShootOffset.y ,0.0f) * 20);
+		transform.position = owner.transform.position;
+        //transform.position = (owner.transform.position) + (new Vector3(settings.Dir.x * ShootOffset.x, settings.Dir.y * ShootOffset.y ,0.0f) * 20);
         transform.up = settings.Dir;
         GetComponent<CircleCollider2D>().enabled = true;
         GetComponent<SpriteRenderer>().sprite = settings.BulletSprite;

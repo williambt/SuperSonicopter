@@ -51,7 +51,10 @@ public class PlayerShip : MonoBehaviour, IShip
 
     public void Awake()
     {
+		print ("antes");
         device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
+		print ("depous");
+
         keyboardMode = !device.IsConnected();
     }
     // Use this for initialization
@@ -70,7 +73,7 @@ public class PlayerShip : MonoBehaviour, IShip
         ShipStates.SShipBegin<PlayerShip> SShipBegin = new ShipStates.SShipBegin<PlayerShip>(this);
         ShipStates.SPlayerControlling<PlayerShip> sPlayerControlling = new ShipStates.SPlayerControlling<PlayerShip>(this);
         ShipStates.SShipExploding<PlayerShip> SShipExploding = new ShipStates.SShipExploding<PlayerShip>(this);
-        ShipStates.SShipDead<PlayerShip> SShipDead = new ShipStates.SShipDead<PlayerShip>(this);
+		ShipStates.SShipPlayerDead SShipDead = new ShipStates.SShipPlayerDead(this);
         // 2 - criar transições
         ShipStates.TLevelStart<PlayerShip> levelStart = new ShipStates.TLevelStart<PlayerShip>(this);
         ShipStates.TIsDead<PlayerShip> isDead = new ShipStates.TIsDead<PlayerShip>(this);
@@ -97,6 +100,13 @@ public class PlayerShip : MonoBehaviour, IShip
     void FixedUpdate ()
     {
         stateMachine.Update();
+	}
+	void Update()
+	{
+		if (ShouldBlink)
+		{
+			Blink();
+		}
 	}
 	public void Fire ()
 	{
@@ -135,10 +145,27 @@ public class PlayerShip : MonoBehaviour, IShip
         ShipAudioRef.PlayExplosionSound();
     }
 
-    public void TakeDamage(float value)
-    {
-        HP -= value;
-    }
+	float TakeDamageClock = 0;
+	bool ShouldBlink = false;
+	float TakeDamageBlinkLimit = 0.05f;
+	Color BlinkColor = new Color(255, 250, 0);
+	public void TakeDamage(float value)
+	{
+		HP -= value;
+		ShouldBlink = true;
+		GetComponent<SpriteRenderer>().material.SetFloat("_ShouldBlink", 1);
+
+	}
+	void Blink()
+	{
+		TakeDamageClock += Time.deltaTime;
+		if (TakeDamageClock >= TakeDamageBlinkLimit)
+		{
+			ShouldBlink = false;
+			TakeDamageClock = 0;
+			GetComponent<SpriteRenderer>().material.SetFloat("_ShouldBlink", 0);
+		}
+	}
     public string ReadInput()
     {
         return device.Read();
@@ -158,4 +185,9 @@ public class PlayerShip : MonoBehaviour, IShip
             settings = powerUp.BulletPowerUp;
         }
     }
+	private void OnApplicationQuit()
+	{
+		print ("quit");
+		device.Close ();
+	}
 }

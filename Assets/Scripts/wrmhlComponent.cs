@@ -36,6 +36,7 @@ public class wrmhlComponent
     }
     ~wrmhlComponent()
     {
+		Debug.Log ("quit do destrutor");
         Device.close();
     }
     public string Read()
@@ -50,4 +51,9 @@ public class wrmhlComponent
 	{
         return successfullyConnected;
     }
+	public void Close()
+	{
+		Device.close ();
+	}
+
 }

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212968577112247392}
   - component: {fileID: 114584990125765862}
   - component: {fileID: 58336097128142282}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: BulletEnemy_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d346b5645ae20b244883da0c5e652e4d, type: 2}
   m_StaticBatchInfo:

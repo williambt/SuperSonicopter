@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212938195502813304}
   - component: {fileID: 114277395335801218}
   - component: {fileID: 58556392222308816}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: BulletBoss_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,6 +72,7 @@ MonoBehaviour:
     DamageValue: 0
     Speed: 0
     Dir: {x: 0, y: 0}
+    BulletSprite: {fileID: 0}
 --- !u!212 &212938195502813304
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -85,7 +86,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d346b5645ae20b244883da0c5e652e4d, type: 2}
   m_StaticBatchInfo:

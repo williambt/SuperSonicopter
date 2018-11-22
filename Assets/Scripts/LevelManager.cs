@@ -44,12 +44,15 @@ public class LevelManager : MonoBehaviour
             else
             {
                 string input = player.ReadInput();
-                char[] delim = { '|' };
-                string[] a = input.Split(delim);
-                if (a[0] == "fire")
-                {
-                    PressedBegin();
-                }
+				if (input != null) 
+				{
+					char[] delim = { '|' };
+					string[] a = input.Split(delim);
+					if (a[0] == "fire")
+					{
+						PressedBegin();
+					}
+				}
             }
         }
         else
@@ -63,6 +66,9 @@ public class LevelManager : MonoBehaviour
                 PressedBegin();
             }
         }
+		if (Begin) {
+			scenarioRef.Scroll ();
+		}
         if (source.timeSamples > 526912 + 4661888)
         {
             source.timeSamples = 526912;
