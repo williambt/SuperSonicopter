@@ -114,6 +114,12 @@ public class PlayerShip : MonoBehaviour, IShip
         if (col.gameObject.GetComponent<EnemyShip>())
         {
             HP = 0 ;
+            print(col.gameObject.name); 
+        }
+        PowerUp powerUp = col.gameObject.GetComponent<PowerUp>();
+        if (powerUp != null)
+        {
+            PowerUp(powerUp);
         }
     }
 
@@ -136,5 +142,20 @@ public class PlayerShip : MonoBehaviour, IShip
     public string ReadInput()
     {
         return device.Read();
+    }
+    void PowerUp(PowerUp powerUp)
+    {
+        if (powerUp.IsHealthBooster)
+        {
+            HP += powerUp.HPRecover;
+            if (HP > MaxHP)
+            {
+                HP = MaxHP;
+            }
+        }
+        else
+        {
+            settings = powerUp.BulletPowerUp;
+        }
     }
 }

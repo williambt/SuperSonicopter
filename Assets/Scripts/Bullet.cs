@@ -8,12 +8,13 @@ public struct BulletSettings
     public float DamageValue;
     public float Speed; 
     public Vector2 Dir;
-
-    public BulletSettings(float damageValue, float speed, Vector2 dir)
+    public Sprite BulletSprite;
+    public BulletSettings(float damageValue, float speed, Vector2 dir, Sprite bulletSprite)
     {
         this.DamageValue = damageValue;
         this.Speed = speed;
         this.Dir = dir;
+        this.BulletSprite = bulletSprite;
     }
 }
 
@@ -49,6 +50,7 @@ public class Bullet : MonoBehaviour
         transform.position = (owner.transform.position) + (new Vector3(settings.Dir.x * ShootOffset.x, settings.Dir.y * ShootOffset.y ,0.0f) * 20);
         transform.up = settings.Dir;
         GetComponent<CircleCollider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().sprite = settings.BulletSprite;
         this.Settings = settings;
     }
     public void OnCollisionEnter2D(Collision2D col)
