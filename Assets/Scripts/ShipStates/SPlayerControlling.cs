@@ -20,7 +20,7 @@ namespace ShipStates
                 player.Move();
             }
 
-            if (player.keyboardMode)
+            if (ArduinoInput.Instance.KeyboardMode)
             {
                 bool moved = false;
                 if (Input.GetKey(KeyCode.UpArrow))
@@ -45,28 +45,21 @@ namespace ShipStates
             }
             else
             {
-                string fire = player.ReadInput();
-                if (fire == null)
-                {
-                    return;
-                }
-                char[] delim = { '|' };
-                string[] a = fire.Split(delim);
-                if (a[0] == "fire")
+               
+                if (ArduinoInput.GetFire())
                 {
                     player.Fire();
                 }
-                if (a[1] != "!" && a[1] != null)
+                
+                float cm = ArduinoInput.GetUSensor() / 10.0f;
+                if (Mathf.Abs(player.lastPos - cm) >= player.sensitivity)
                 {
-                    float cm = float.Parse(a[1]) / 10.0f;
-                    if (Mathf.Abs(player.lastPos - cm) >= player.sensitivity)
-                    {
-                        player.lerpTargetY = player.yStart + (cm / 10.0f - 3.0f) * player.offset;
-                        player.lerpStartY = player.transform.position.y;
-                        player.lerpT = 0;
-                        player.lastPos = cm;
-                    }
+                    player.lerpTargetY = player.yStart + (cm / 10.0f - 3.0f) * player.offset;
+                    player.lerpStartY = player.transform.position.y;
+                    player.lerpT = 0;
+                    player.lastPos = cm;
                 }
+                
             }
         }
 
