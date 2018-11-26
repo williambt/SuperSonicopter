@@ -13,18 +13,16 @@ namespace ShipStates
 
 		public override void Action()
 		{
-			//base.Action();
 		}
 
 		public override void EntryAction()
 		{
 			spriteRef.enabled = false;
-			Owner.GetComponent<PolygonCollider2D> ().enabled = false;
+			Owner.GetComponent<Collider2D> ().enabled = false;
 		}
 
 		public override void ExitAction()
 		{
-			//base.ExitAction();
 		}
 
 		public override string GetStateName()

@@ -21,7 +21,6 @@ namespace ShipStates
 
 		public override void ExitAction()
 		{
-			//base.ExitAction();
 		}
 
 		public override string GetStateName()

@@ -41,7 +41,7 @@ Transform:
   m_GameObject: {fileID: 1940612870922822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.83, y: 6.65, z: -1.0047264}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,6 +111,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114001767358705728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,7 +158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DrawTrajectory: 0
   MoveSpeed: 5
-  direction: {x: 1, y: 0}
 --- !u!212 &212836469185828064
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -171,6 +171,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d346b5645ae20b244883da0c5e652e4d, type: 2}
   m_StaticBatchInfo:

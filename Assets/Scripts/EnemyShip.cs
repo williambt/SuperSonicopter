@@ -82,7 +82,7 @@ public class EnemyShip : MonoBehaviour, IShip
     }
     public void Explode()
     {
-        GetComponent<PolygonCollider2D>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().sprite = Dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();

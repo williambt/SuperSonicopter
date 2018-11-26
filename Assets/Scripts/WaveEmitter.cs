@@ -15,12 +15,13 @@ public class WaveEmitter : MonoBehaviour
 	public GameObject Helicopter;
 	public GameObject Zeppelin;
 	public GameObject Kamikaze;
+    public GameObject Barrage;
     public TextAsset WaveFile;
 
 	ObjectPool HeliPool;
     ObjectPool ZeppelinPool;
 	ObjectPool KamikazePool;
-
+    ObjectPool BarragePool;
 
     GameObject EnemyParent = null;
 
@@ -33,6 +34,7 @@ public class WaveEmitter : MonoBehaviour
         Waves = new List<Wave>();
         HeliPool = new ObjectPool (Helicopter, transform, 30);
         ZeppelinPool = new ObjectPool(Zeppelin, transform, 30);
+        BarragePool = new ObjectPool (Barrage, transform, 30);
 		KamikazePool = new ObjectPool (Kamikaze, transform, 30);
 
         ParseWavesFile();
@@ -96,25 +98,29 @@ public class WaveEmitter : MonoBehaviour
                     pm.Aperture = wavePm.Aperture;
                     pm.VertexOffset = wavePm.VertexOffset;
                     pm.xOffset = wavePm.xOffset;
+                    enemy.GetComponent<SpriteRenderer>().sprite = Helicopter.GetComponent<SpriteRenderer>().sprite;
+
                     break;
                 }
             case ENEMYTYPE.Zeppelin:
                 {
                     enemy = ZeppelinPool.GetGameObjectFromPool();
 //                    //Setup movement
-				StopAndShoot lm = enemy.GetComponent<StopAndShoot>();
-                      StopAndShoot waveLm = (StopAndShoot)wave.Movement;
-                      lm.MaxSpeed = waveLm.MaxSpeed;
-                      lm.Desaceleration = waveLm.Desaceleration;
-                      lm.TargetPos = waveLm.TargetPos;
-                break;
+				    StopAndShoot lm = enemy.GetComponent<StopAndShoot>();
+                          StopAndShoot waveLm = (StopAndShoot)wave.Movement;
+                          lm.MaxSpeed = waveLm.MaxSpeed;
+                          lm.Desaceleration = waveLm.Desaceleration;
+                          lm.TargetPos = waveLm.TargetPos;
+                    enemy.GetComponent<SpriteRenderer>().sprite = Zeppelin.GetComponent<SpriteRenderer>().sprite;
+                    break;
                 }
 		case ENEMYTYPE.Kamikaze:
 			{
 				enemy = KamikazePool.GetGameObjectFromPool();
 				//Setup movement
 				enemy.GetComponent<KamikazeMovement>().MoveSpeed = wave.Movement.MoveSpeed;
-				break;
+                enemy.GetComponent<SpriteRenderer>().sprite = Kamikaze.GetComponent<SpriteRenderer>().sprite;
+                break;
 			}
 
             default:
@@ -124,8 +130,7 @@ public class WaveEmitter : MonoBehaviour
 		Animator enemyAnimator = enemy.GetComponent<Animator>();
 		enemyAnimator.Rebind ();
 		enemyAnimator.SetBool ("Alive", true);
-
-		enemy.GetComponent<PolygonCollider2D>().enabled = true;
+		enemy.GetComponent<Collider2D>().enabled = true;
 		enemy.GetComponent<EnemyShip>().HP = enemy.GetComponent<EnemyShip>().MaxHP;
 		if (enemy.GetComponent<EnemyShip> ().stateMachine != null) 
 		{

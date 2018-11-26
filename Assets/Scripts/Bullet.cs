@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
 		transform.position = owner.transform.position;
         //transform.position = (owner.transform.position) + (new Vector3(settings.Dir.x * ShootOffset.x, settings.Dir.y * ShootOffset.y ,0.0f) * 20);
         transform.up = settings.Dir;
-        GetComponent<CircleCollider2D>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
         GetComponent<SpriteRenderer>().sprite = settings.BulletSprite;
         this.Settings = settings;
     }
@@ -59,7 +59,7 @@ public class Bullet : MonoBehaviour
         if (shipcolider != null)
         {
             shipcolider.TakeDamage(Settings.DamageValue);
-            GetComponent<CircleCollider2D>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
             gameObject.SetActive(false);
         }
     }
@@ -67,7 +67,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "Bounds")
         {
-            GetComponent<CircleCollider2D>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
             gameObject.SetActive(false);
         }
     }
