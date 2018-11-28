@@ -2803,6 +2803,12 @@ Prefab:
       value: 
       objectReference: {fileID: 1940612870922822, guid: 75b2adeb5d61e19448f773c2d3ed91b4,
         type: 2}
+    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
+        type: 2}
+      propertyPath: Barrage
+      value: 
+      objectReference: {fileID: 1154917805833994, guid: 4612a9ea704fb0144b4d19ac24013bc0,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f, type: 2}
   m_IsPrefabParent: 0

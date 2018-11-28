@@ -10,13 +10,12 @@ namespace ShipStates
 		Animator animRef;
         public TReadyToReset(T owner) : base(owner)
         {
-			MonoBehaviour reference = (MonoBehaviour)(object)Owner;
-			animRef = reference.gameObject.GetComponent<Animator> ();
+            UpdateAnimRef();
         }
 
         public override void EntryAction()
         {
-            //base.EntryAction();
+            
         }
 
         public override void ExitAction()
@@ -26,7 +25,16 @@ namespace ShipStates
 
         public override bool IsTriggered()
         {
+            if (animRef == null)
+            {
+                UpdateAnimRef();
+            }
 			return animRef.GetCurrentAnimatorStateInfo(0).IsName("Dead");
+        }
+        void UpdateAnimRef()
+        {
+            MonoBehaviour reference = (MonoBehaviour)(object)Owner;
+            animRef = reference.gameObject.GetComponent<Animator>();
         }
     }
 }

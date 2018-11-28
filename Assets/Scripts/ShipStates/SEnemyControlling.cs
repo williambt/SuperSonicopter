@@ -13,13 +13,12 @@ namespace ShipStates
 		public override void Action()
 		{
             movement.Move(Owner.RigidbodyRef);
-		}
+        }
 		public override void EntryAction()
 		{
-		}
 
-
-		public override void ExitAction()
+        }
+        public override void ExitAction()
 		{
 		}
 

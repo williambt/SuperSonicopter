@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50839780397302774}
   - component: {fileID: 60604949495051422}
   - component: {fileID: 114194826250366970}
+  - component: {fileID: 114704763371920920}
   m_Layer: 10
   m_Name: Barrage
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1154917805833994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.175183, y: -0.7551839, z: -1.0047264}
+  m_LocalPosition: {x: 12.71, y: 3.05, z: -1.0047264}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -144,6 +145,23 @@ MonoBehaviour:
   Dead: {fileID: 0}
   MaxHP: 100
   RigidbodyRef: {fileID: 0}
+--- !u!114 &114704763371920920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154917805833994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2968c918e7a8684cb99e3a08e903c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DrawTrajectory: 1
+  MoveSpeed: 2.5
+  TargetPos: {x: 0, y: 0}
+  MaxSpeed: 0
+  Desaceleration: 0
+  ExitPoint: {x: 0, y: 0, z: 0}
 --- !u!212 &212100037047157482
 SpriteRenderer:
   m_ObjectHideFlags: 1

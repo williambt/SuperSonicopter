@@ -122,4 +122,7 @@ public class EnemyShip : MonoBehaviour, IShip
             ShipAudioRef.PlayFireSound();
         }
     }
+    private void OnEnable()
+    {
+    }
 }

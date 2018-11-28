@@ -7,8 +7,6 @@ namespace ShipStates
 		SpriteRenderer spriteRef;
         public SShipDead(T Owner) : base(Owner)
         {
-			MonoBehaviour ship = (MonoBehaviour)(object)Owner;
-			spriteRef = ship.gameObject.GetComponent<SpriteRenderer> ();
         }
 
         public override void Action()
@@ -18,8 +16,9 @@ namespace ShipStates
 
         public override void EntryAction()
         {
-			spriteRef.gameObject.SetActive(false);
-
+            MonoBehaviour ship = (MonoBehaviour)(object)Owner;
+            spriteRef = ship.gameObject.GetComponent<SpriteRenderer>();
+            spriteRef.gameObject.SetActive(false);
         }
 
         public override void ExitAction()
