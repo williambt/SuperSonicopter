@@ -63,10 +63,6 @@ public class LevelManager : MonoBehaviour
 		if (Begin) {
 			scenarioRef.Scroll ();
 		}
-        if (source.timeSamples > 526912 + 4661888)
-        {
-            source.timeSamples = 526912;
-        }
 	}
     public void SuccesfullyConnected()
     {

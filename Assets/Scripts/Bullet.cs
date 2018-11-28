@@ -21,10 +21,6 @@ public struct BulletSettings
 
 public class Bullet : MonoBehaviour
 {
-    Camera CameraRef;
-    Renderer RendererRef;
-    Rigidbody2D RigidbodyRef;
-
     public BulletSettings Settings;
 
     void Start()
@@ -42,12 +38,8 @@ public class Bullet : MonoBehaviour
     }
     public void Initialize(GameObject owner, BulletSettings settings)
     {
-        CameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        RendererRef = GetComponent<Renderer>();
-        RigidbodyRef = GetComponent<Rigidbody2D>();
         Vector2 ShootOffset = GetComponent<SpriteRenderer>().bounds.extents;
 		transform.position = owner.transform.position;
-        //transform.position = (owner.transform.position) + (new Vector3(settings.Dir.x * ShootOffset.x, settings.Dir.y * ShootOffset.y ,0.0f) * 20);
         transform.up = settings.Dir;
         GetComponent<Collider2D>().enabled = true;
         GetComponent<SpriteRenderer>().sprite = settings.BulletSprite;

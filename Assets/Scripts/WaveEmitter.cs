@@ -140,6 +140,7 @@ public class WaveEmitter : MonoBehaviour
                     ShootAndGetOut sg = enemy.GetComponent<ShootAndGetOut>();
                     ShootAndGetOut waveSg = (ShootAndGetOut)wave.Movement;
                     sg.MoveSpeed = wave.Movement.MoveSpeed;
+                    sg.MaxSpeed = waveSg.MaxSpeed;
                     sg.Desaceleration = waveSg.Desaceleration;
                     sg.TargetPos = waveSg.TargetPos;
                     enemy.GetComponent<SpriteRenderer>().sprite = Kamikaze.GetComponent<SpriteRenderer>().sprite;

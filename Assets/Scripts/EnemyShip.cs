@@ -92,7 +92,7 @@ public class EnemyShip : MonoBehaviour, IShip
     float TakeDamageClock = 0;
     bool ShouldBlink = false;
     float TakeDamageBlinkLimit = 0.05f;
-    Color BlinkColor = new Color(255, 250, 0);
+
     public void TakeDamage(float value)
     {
         HP -= value;

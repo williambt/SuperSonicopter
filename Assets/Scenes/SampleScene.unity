@@ -511,12 +511,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!114 &244999639 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1378677930}
-  m_Script: {fileID: 11500000, guid: f7c7d59e6dadb0a49b306442c6545e08, type: 3}
 --- !u!1 &279199965
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,7 +2549,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4496326754926232, guid: 2668e63ea84a324418a2e71908c110b5, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114247144053362688, guid: 2668e63ea84a324418a2e71908c110b5,
         type: 2}
@@ -2746,11 +2740,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: Waves.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4885312686361754, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2788,42 +2777,6 @@ Prefab:
       propertyPath: scenarioRef
       value: 
       objectReference: {fileID: 994673893}
-    - target: {fileID: 82497022092881908, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: m_Volume
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82497022092881908, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: panLevelCustomCurve.m_RotationOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82497022092881908, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: Waves.Array.data[0].Group.Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: WaveFile
-      value: 
-      objectReference: {fileID: 4900000, guid: 063769d1e88864d45bdb194877e4ee74, type: 3}
-    - target: {fileID: 82497022092881908, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: Zeppelin
-      value: 
-      objectReference: {fileID: 1412872804617086, guid: b7501481a7dbe7a4e9719cd4cfc877ad,
-        type: 2}
     - target: {fileID: 114187535779216136, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
         type: 2}
       propertyPath: player
@@ -2834,29 +2787,8 @@ Prefab:
       propertyPath: title
       value: 
       objectReference: {fileID: 577847776}
-    - target: {fileID: 114187535779216136, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: emitter
-      value: 
-      objectReference: {fileID: 244999639}
-    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: Kamikaze
-      value: 
-      objectReference: {fileID: 1940612870922822, guid: 75b2adeb5d61e19448f773c2d3ed91b4,
-        type: 2}
-    - target: {fileID: 114445177104183922, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f,
-        type: 2}
-      propertyPath: Barrage
-      value: 
-      objectReference: {fileID: 1154917805833994, guid: 4612a9ea704fb0144b4d19ac24013bc0,
-        type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 82497022092881908, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: bc0a5f6e4e331b54c871f3a5a0a57b0f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1399083337

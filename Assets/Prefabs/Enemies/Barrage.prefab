@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1154917805833994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.71, y: 3.05, z: -1.0047264}
+  m_LocalPosition: {x: 5.4007773, y: 1.8767083, z: -1.0047264}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -103,7 +103,7 @@ Animator:
   m_GameObject: {fileID: 1154917805833994}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 95c8d5a0bb043ce4ebb7247ec301a5b3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0ae73f10922cbcb409779b6afd1b5883, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
     DamageValue: 10
     Speed: 5
     Dir: {x: 0, y: 0}
-    BulletSprite: {fileID: 21300000, guid: 77e4f4afbbeb4fc4ab9a64a6b7ea9a00, type: 3}
+    BulletSprite: {fileID: 21300000, guid: 603cf06c0300be34cb6952ff7558c61e, type: 3}
   Dead: {fileID: 0}
   MaxHP: 100
   RigidbodyRef: {fileID: 0}
