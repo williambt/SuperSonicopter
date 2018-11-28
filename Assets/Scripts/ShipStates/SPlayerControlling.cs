@@ -50,11 +50,11 @@ namespace ShipStates
                 {
                     player.Fire();
                 }
-                
-                float cm = ArduinoInput.GetUSensor() / 10.0f;
+
+                float cm = ArduinoInput.GetUSensor();// / 10.0f;
                 if (Mathf.Abs(player.lastPos - cm) >= player.sensitivity)
                 {
-                    player.lerpTargetY = player.yStart + (cm / 10.0f - 3.0f) * player.offset;
+                    player.lerpTargetY = Mathf.Lerp(player.LowerLimit, player.UpperLimit, cm / player.MaxSensorValue);//player.yStart + (cm / 10.0f - 3.0f) * player.offset;
                     player.lerpStartY = player.transform.position.y;
                     player.lerpT = 0;
                     player.lastPos = cm;

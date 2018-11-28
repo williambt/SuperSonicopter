@@ -16,8 +16,6 @@ public class PlayerShip : MonoBehaviour, IShip
     public float MaxHP;
     [Space(10)]
 
-    
-
     [HideInInspector]
     public float yStart;
     [HideInInspector]
@@ -42,7 +40,14 @@ public class PlayerShip : MonoBehaviour, IShip
     ShipAudio ShipAudioRef;
     ObjectPool objectPool;
 
-    float HP { get; set; }
+    public float HP { get; set; }
+
+    [HideInInspector]
+    public float MaxSensorValue;
+    [HideInInspector]
+    public float UpperLimit;
+    [HideInInspector]
+    public float LowerLimit;
 
     // Use this for initialization
     void Start ()
@@ -94,6 +99,10 @@ public class PlayerShip : MonoBehaviour, IShip
 		{
 			Blink();
 		}
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(50);
+        }
 	}
 	public void Fire ()
 	{
@@ -130,6 +139,8 @@ public class PlayerShip : MonoBehaviour, IShip
         GetComponent<SpriteRenderer>().sprite = dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
+
+        LevelManager.Instance.GameOver = true;
     }
 
 	float TakeDamageClock = 0;

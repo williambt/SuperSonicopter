@@ -20,6 +20,7 @@ public class Wave
     public MovementType Movement;
     public float SpawnDelay;
 	public float Interval;
+    public float Score;
     public Wave()
     {
         //Group = new EnemyGroup();

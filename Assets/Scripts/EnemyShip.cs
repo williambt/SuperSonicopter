@@ -20,6 +20,8 @@ public class EnemyShip : MonoBehaviour, IShip
 
 	MovementType MoveType;
 
+    public float Score;
+
     public float HP { get; set; }
     void Start ()
     {
@@ -86,6 +88,8 @@ public class EnemyShip : MonoBehaviour, IShip
         GetComponent<SpriteRenderer>().sprite = Dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
+
+        LevelManager.Instance.Score += Score;
     }
 
 

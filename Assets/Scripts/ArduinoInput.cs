@@ -19,6 +19,7 @@ public class ArduinoInput : MonoBehaviour
 
     float USSValue = 0;
     bool Fire = false;
+    bool lastFire = false;
     private void Awake()
     {
         Instance = this;
@@ -32,6 +33,8 @@ public class ArduinoInput : MonoBehaviour
     {
         if (!KeyboardMode)
         {
+            bool fireTemp = Fire;
+
             string fire = Device.Read();
             if (fire == null)
             {
@@ -44,6 +47,8 @@ public class ArduinoInput : MonoBehaviour
             }
             char[] delim = { '|' };
             string[] a = fire.Split(delim);
+
+            lastFire = Fire;
             if (a[0] == "fire")
             {
                 Fire = true;
@@ -65,6 +70,14 @@ public class ArduinoInput : MonoBehaviour
     public static bool GetFire()
     {
         return Instance.Fire;
+    }
+    public static bool GetFirePressed()
+    {
+        return Instance.Fire && !Instance.lastFire;
+    }
+    public static bool GetFireReleased()
+    {
+        return !Instance.Fire && Instance.lastFire;
     }
     public static bool IsDeviceReady()
     {

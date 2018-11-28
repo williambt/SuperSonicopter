@@ -158,6 +158,11 @@ public class WaveEmitter : MonoBehaviour
 		}
         enemy.transform.parent = EnemyParent.transform;
         enemy.transform.position = wave.Position;
+
+        if(wave.Score != 0)
+        {
+            enemy.GetComponent<EnemyShip>().Score = wave.Score;
+        }
     }
 
     void ParseWavesFile()
@@ -174,8 +179,15 @@ public class WaveEmitter : MonoBehaviour
                 Wave wave = new Wave();
                 List<string> els = new List<string>(line.Split(new char[] { ' ' }));
                 els.RemoveAll(item => item == "" || item == " ");
+                int currIndex = 0;
 
-				switch (els[0].ToLower()) 
+                int score = 0;
+                if(int.TryParse(els[currIndex], out score))
+                {
+                    currIndex++;
+                }
+
+				switch (els[currIndex++].ToLower()) 
 				{
 					case "helicopter":
 						wave.EnemyType = ENEMYTYPE.Helicopter;
@@ -192,56 +204,57 @@ public class WaveEmitter : MonoBehaviour
 					default:
 						break;
 				}
-                wave.EnemyCount = int.Parse(els[1]);
-                wave.Position = new Vector2(float.Parse(els[2]), float.Parse(els[3]));
-                string moveType = els[4].ToLower();
+                wave.EnemyCount = int.Parse(els[currIndex++]);
+                wave.Position = new Vector2(float.Parse(els[currIndex++]), float.Parse(els[currIndex++]));
+                string moveType = els[currIndex++].ToLower();
 
                 switch(moveType)
                 {
                     case "parabola":
                         wave.Movement = new ParabolaMovement();
                         ParabolaMovement pm = (ParabolaMovement)wave.Movement;
-                        pm.MoveSpeed = float.Parse(els[5]);
-                        pm.Aperture = float.Parse(els[6]);
-                        pm.VertexOffset = float.Parse(els[7]);
-                        pm.xOffset = float.Parse(els[8]);
+                        pm.MoveSpeed = float.Parse(els[currIndex++]);
+                        pm.Aperture = float.Parse(els[currIndex++]);
+                        pm.VertexOffset = float.Parse(els[currIndex++]);
+                        pm.xOffset = float.Parse(els[currIndex++]);
                         break;
                     case "linear":
                         wave.Movement = new LinearMovement();
                         LinearMovement lm = (LinearMovement)wave.Movement;
-                        lm.MoveSpeed = float.Parse(els[5]);
-                        lm.direction = new Vector2(float.Parse(els[6]), float.Parse(els[7]));
+                        lm.MoveSpeed = float.Parse(els[currIndex++]);
+                        lm.direction = new Vector2(float.Parse(els[currIndex++]), float.Parse(els[currIndex++]));
                         break;
                     case "stopshoot":
                         wave.Movement = new StopAndShoot();
                         StopAndShoot sm = (StopAndShoot)wave.Movement;
                         sm.TargetPos = new Vector2();
-                        sm.TargetPos.x = float.Parse(els[6]);
-                        sm.TargetPos.y = float.Parse(els[7]);
-                        sm.MaxSpeed = float.Parse(els[5]);
-                        sm.Desaceleration = float.Parse(els[8]);
+                        sm.TargetPos.x = float.Parse(els[currIndex++]);
+                        sm.TargetPos.y = float.Parse(els[currIndex++]);
+                        sm.MaxSpeed = float.Parse(els[currIndex++]);
+                        sm.Desaceleration = float.Parse(els[currIndex++]);
                         break;
 					case "kamikaze":
 						wave.Movement = new KamikazeMovement();
-						wave.Movement.MoveSpeed = float.Parse(els[5]);
+						wave.Movement.MoveSpeed = float.Parse(els[currIndex++]);
                         break;
                     case "shootgetout":
                         wave.Movement = new ShootAndGetOut();
                         ShootAndGetOut sg = (ShootAndGetOut)wave.Movement;
                         sg.TargetPos = new Vector2();
-                        wave.Movement.MoveSpeed = float.Parse(els[5]);
-                        sg.MaxSpeed = float.Parse(els[5]);
-                        sg.TargetPos.x = float.Parse(els[6]);
-                        sg.TargetPos.y = float.Parse(els[7]);
-                        sg.Desaceleration = float.Parse(els[8]);
-
+                        wave.Movement.MoveSpeed = float.Parse(els[currIndex]);
+                        sg.MaxSpeed = float.Parse(els[currIndex++]);
+                        sg.TargetPos.x = float.Parse(els[currIndex++]);
+                        sg.TargetPos.y = float.Parse(els[currIndex++]);
+                        sg.Desaceleration = float.Parse(els[currIndex++]);
                         break;
                     default:
                         break;
                 }
 
-                wave.SpawnDelay = float.Parse(els[els.Count - 2]);
-                wave.Interval = float.Parse(els[els.Count - 1]);
+                wave.SpawnDelay = float.Parse(els[currIndex++]);
+                wave.Interval = float.Parse(els[currIndex++]);
+
+                wave.Score = score;
 
                 Waves.Add(wave);
             }
