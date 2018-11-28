@@ -32,26 +32,20 @@ public class LevelManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (!player.keyboardMode)
+        if (!ArduinoInput.Instance.KeyboardMode)
         {
             if (!Connected)
             {
-                if (player.ReadInput() != null)
+                if (ArduinoInput.IsDeviceReady())
                 {
                     SuccesfullyConnected();
                 }
             }
             else
             {
-                string input = player.ReadInput();
-				if (input != null) 
+				if (ArduinoInput.GetFire())
 				{
-					char[] delim = { '|' };
-					string[] a = input.Split(delim);
-					if (a[0] == "fire")
-					{
-						PressedBegin();
-					}
+					PressedBegin();
 				}
             }
         }

@@ -16,18 +16,13 @@ public class PlayerShip : MonoBehaviour, IShip
     public float MaxHP;
     [Space(10)]
 
-    [Header("Arduino Settings")]
-    public string portName = "COM3";
-    public int baudRate = 9600;
-    public int readTimeout = 20;
-    public int queueLength = 1;
+    
 
     [HideInInspector]
     public float yStart;
     [HideInInspector]
     public float offset = 1f;
-    [HideInInspector]
-    public wrmhlComponent device;
+    
 
     [HideInInspector]
     public float lastPos = 0;
@@ -49,14 +44,6 @@ public class PlayerShip : MonoBehaviour, IShip
 
     float HP { get; set; }
 
-    public void Awake()
-    {
-		print ("antes");
-        device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
-		print ("depous");
-
-        keyboardMode = !device.IsConnected();
-    }
     // Use this for initialization
     void Start ()
     {
@@ -166,10 +153,6 @@ public class PlayerShip : MonoBehaviour, IShip
 			GetComponent<SpriteRenderer>().material.SetFloat("_ShouldBlink", 0);
 		}
 	}
-    public string ReadInput()
-    {
-        return device.Read();
-    }
     void PowerUp(PowerUp powerUp)
     {
         if (powerUp.IsHealthBooster)
@@ -185,9 +168,5 @@ public class PlayerShip : MonoBehaviour, IShip
             settings = powerUp.BulletPowerUp;
         }
     }
-	private void OnApplicationQuit()
-	{
-		print ("quit");
-		device.Close ();
-	}
+	
 }
