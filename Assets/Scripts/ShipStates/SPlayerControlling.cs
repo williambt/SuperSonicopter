@@ -12,7 +12,8 @@ namespace ShipStates
         {
             player = (PlayerShip)(object)Owner;
         }
-
+        float Clock = 0;
+        float ShootInterval = 0.25f;
         public override void Action()
         {
             if (player.lerpStartY != player.lerpTargetY)
@@ -48,7 +49,12 @@ namespace ShipStates
                
                 if (ArduinoInput.GetFire())
                 {
-                    player.Fire();
+                    Clock += Time.deltaTime;
+                    if (Clock >= ShootInterval)
+                    {
+                        Clock = 0;
+                        player.Fire();
+                    }
                 }
 
                 float cm = ArduinoInput.GetUSensor();// / 10.0f;
