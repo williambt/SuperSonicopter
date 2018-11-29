@@ -7,7 +7,6 @@ public class PlayerShip : MonoBehaviour, IShip
     [Header("Helicopter Style")]
     public BulletSettings settings;
     public GameObject bullet;
-    public Sprite dead;
     [Header("Helicopter Settings")]
     [Range(0, 25)]
     public float displacementSpeed = 10;
@@ -99,10 +98,6 @@ public class PlayerShip : MonoBehaviour, IShip
 		{
 			Blink();
 		}
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(50);
-        }
 	}
 	public void Fire ()
 	{
@@ -120,7 +115,6 @@ public class PlayerShip : MonoBehaviour, IShip
         if (col.gameObject.GetComponent<EnemyShip>())
         {
             HP = 0 ;
-            print(col.gameObject.name); 
         }
         PowerUp powerUp = col.gameObject.GetComponent<PowerUp>();
         if (powerUp != null)
@@ -136,7 +130,6 @@ public class PlayerShip : MonoBehaviour, IShip
 
     public void Explode()
     {
-        GetComponent<SpriteRenderer>().sprite = dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
 

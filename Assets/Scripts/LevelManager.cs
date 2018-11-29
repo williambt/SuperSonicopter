@@ -150,4 +150,8 @@ public class LevelManager : MonoBehaviour
         ButtonPressTimer = 0;
         title.SetFloat("EnterCalibrationBar", 0);
     }
+    public static void AddScore(float deltaScore)
+    {
+        LevelManager.Instance.Score += deltaScore;
+    }
 }

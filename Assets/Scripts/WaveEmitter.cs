@@ -91,18 +91,6 @@ public class WaveEmitter : MonoBehaviour
             case ENEMYTYPE.Helicopter:
                 {
                     enemy = HeliPool.GetGameObjectFromPool();
-                    //resetar o animator
-                    DestroyImmediate(enemy.GetComponent<Animator>());
-                    Animator animator = enemy.AddComponent<Animator>();
-                    animator.runtimeAnimatorController = Helicopter.GetComponent<Animator>().runtimeAnimatorController;
-                    animator.Rebind();
-                    //resetar o sprite renderer
-                    DestroyImmediate(enemy.GetComponent<SpriteRenderer>());
-                    SpriteRenderer spriteRenderer = enemy.AddComponent<SpriteRenderer>();
-                    spriteRenderer.material = Helicopter.GetComponent<SpriteRenderer>().sharedMaterial;
-                    spriteRenderer.sprite = Helicopter.GetComponent<SpriteRenderer>().sprite;
-                    spriteRenderer.flipX = true;
-                    //-------------------------------------------------------------------------------------------
                     //Setup movement
                     ParabolaMovement pm = enemy.GetComponent<ParabolaMovement>();
                     ParabolaMovement wavePm = (ParabolaMovement)wave.Movement;
@@ -228,9 +216,9 @@ public class WaveEmitter : MonoBehaviour
                         wave.Movement = new StopAndShoot();
                         StopAndShoot sm = (StopAndShoot)wave.Movement;
                         sm.TargetPos = new Vector2();
+                        sm.MaxSpeed = float.Parse(els[currIndex++]);
                         sm.TargetPos.x = float.Parse(els[currIndex++]);
                         sm.TargetPos.y = float.Parse(els[currIndex++]);
-                        sm.MaxSpeed = float.Parse(els[currIndex++]);
                         sm.Desaceleration = float.Parse(els[currIndex++]);
                         break;
 					case "kamikaze":

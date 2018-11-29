@@ -142,9 +142,9 @@ MonoBehaviour:
     Speed: 5
     Dir: {x: 0, y: 0}
     BulletSprite: {fileID: 21300000, guid: 603cf06c0300be34cb6952ff7558c61e, type: 3}
-  Dead: {fileID: 0}
   MaxHP: 100
   RigidbodyRef: {fileID: 0}
+  Score: 100
 --- !u!114 &114704763371920920
 MonoBehaviour:
   m_ObjectHideFlags: 1

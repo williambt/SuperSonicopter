@@ -7,7 +7,6 @@ public class EnemyShip : MonoBehaviour, IShip
 	[Header("Style")]
 	public GameObject Bullet;
     public BulletSettings Settings;
-    public Sprite Dead;
     public float MaxHP;
 
     [HideInInspector]
@@ -85,11 +84,10 @@ public class EnemyShip : MonoBehaviour, IShip
     public void Explode()
     {
         GetComponent<Collider2D>().enabled = false;
-        GetComponent<SpriteRenderer>().sprite = Dead;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
 
-        LevelManager.Instance.Score += Score;
+        LevelManager.AddScore(Score);
     }
 
 

@@ -159,9 +159,9 @@ MonoBehaviour:
     Speed: 5
     Dir: {x: 0, y: 0}
     BulletSprite: {fileID: 21300000, guid: 77e4f4afbbeb4fc4ab9a64a6b7ea9a00, type: 3}
-  Dead: {fileID: 0}
   MaxHP: 100
   RigidbodyRef: {fileID: 0}
+  Score: 50
 --- !u!212 &212123531333017530
 SpriteRenderer:
   m_ObjectHideFlags: 1

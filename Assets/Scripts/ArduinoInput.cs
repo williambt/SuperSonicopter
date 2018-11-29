@@ -85,6 +85,6 @@ public class ArduinoInput : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        Device.Close();
+        Instance.Device.Close();
     }
 }
