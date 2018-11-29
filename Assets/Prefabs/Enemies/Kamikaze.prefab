@@ -111,7 +111,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114001767358705728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,6 +131,7 @@ MonoBehaviour:
   MaxHP: 100
   RigidbodyRef: {fileID: 0}
   Score: 25
+  dropRate: 30
 --- !u!114 &114385934924995536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -171,7 +171,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d346b5645ae20b244883da0c5e652e4d, type: 2}
   m_StaticBatchInfo:

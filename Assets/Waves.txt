@@ -2,22 +2,37 @@
 #layout
 #    0       1     2   3      4         5       6 7 8        9               10        
 #[sprite] [count] [x] [y] [movetype] [speed]   [params]  [spawndelay] [nextwavedelay]
-#kamikaze   5  15.15   4.46    kamikaze    15				0.5             2
-#kamikaze   3  15.15   -4.46    kamikaze    15					0.5             2
-barrage   3   15.15   4.46    shootgetout    15.5     6.89 3.31 0.1       0.5             4
 
+helicopter   5     6   6   parabola    2.5     0.36 0 0       0.5             2
+helicopter   5     6   6   parabola    2.5     -0.36 0 0       0.5             2
 
+zeppelin   1  15.15   4.46    stopshoot    5.5     6.21 3.31 0.1       0.5              1
+zeppelin   1  15.15   4.46    stopshoot    5.5     6.21 1.31 0.1       0.5              1
+zeppelin   1  15.15   4.46    stopshoot    5.5     6.21 -1.31 0.1       0.5             1
+zeppelin   1  15.15   4.46    stopshoot    5.5     6.21 -3.31 0.1       0.5             6
+
+kamikaze   2  15.15   4.46    kamikaze    10 					0.5             4
+kamikaze   2  15.15   -4.46    kamikaze    10					0.5             4
+
+barrage   3   15.15   4.46    shootgetout    15.5     6.0 3.31 0.1       0.5             2
+barrage   3   15.15   -4.46    shootgetout    15.5     6.0 -3.31 0.1       0.5             4
 
 #wave2
 helicopter   5     6   6   parabola    2.5     0.36 0 0       0.5             2
 helicopter   5     6   6   parabola    2.5     -0.36 0 0       0.5             2
-zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 3.31 0.05       0.5              1
-zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 1.31 0.05       0.5              1
-zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 -1.31 0.05       0.5             1
-zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 -3.31 0.5       0.5             4
+
+
+zeppelin   1  15.15   4.46    stopshoot    5.5     6.21 3.31 0.1       0.5              1
+zeppelin   1  15.15   4.46    stopshoot    5.5     6.21 1.31 0.1       0.5              1
+zeppelin   1  15.15   4.46    stopshoot    5.5     6.21 -1.31 0.1       0.5             1
+zeppelin   1  15.15   4.46    stopshoot    5.5     6.21 -3.31 0.1       0.5             6
+
+barrage   1   15.15   -4.46    shootgetout    10.5     6.0 3.31 0.1       0.5             2
+barrage   1   15.15   0.46    shootgetout    10.5     6.0 0.31 0.1       0.5             2
+barrage   1   15.15   4.46    shootgetout    10.5     6.0 3.31 0.1       0.5             4
 
 #wave 3
-zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 3.31 0.05       0.5              1
-zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 1.31 0.05       0.5              1
-zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 -1.31 0.05       0.5             1
-zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 -3.31 0.5       0.5             4
+zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 3.31 0.1       0.5              1
+zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 1.31 0.1       0.5              1
+zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 -1.31 0.1       0.5             1
+zeppelin   1  15.15   4.46    stopshoot    2.5     6.21 -3.31 0.1       0.5             4

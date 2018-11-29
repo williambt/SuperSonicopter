@@ -165,8 +165,8 @@ public class WaveEmitter : MonoBehaviour
                 if (line == "" || line[0] == '#')
                     continue;
                 Wave wave = new Wave();
-                List<string> els = new List<string>(line.Split(new char[] { ' ' }));
-                els.RemoveAll(item => item == "" || item == " ");
+                List<string> els = new List<string>(line.Split(new char[] { ' ', '\t'}));
+				els.RemoveAll(item => item == "" || item == " ");
                 int currIndex = 0;
 
                 int score = 0;

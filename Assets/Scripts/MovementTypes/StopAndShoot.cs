@@ -48,5 +48,9 @@ class StopAndShoot : MovementType
         }
 
     }
+	void OnEnable()
+	{
+		HasStopped = false;
+	}
 }
 

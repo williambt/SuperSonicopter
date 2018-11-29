@@ -8,10 +8,16 @@ public class DoorFlying : MonoBehaviour
 	float speed = 10.0f;
 	float zoomSpeed = 100.0f;
 
+	public Rigidbody2D traseira;
+	public Rigidbody2D cabine;
+
 	// Use this for initialization
 	void Start () 
 	{	
 		dir = new Vector2 (Random.Range (1, 100), Random.Range (1, 100)).normalized;
+		traseira.AddForce (new Vector2 (Random.Range (0.0f, 1.0f), Random.Range (0.0f, 1.0f)) * 20, ForceMode2D.Impulse);
+		cabine.AddForce (new Vector2 (Random.Range (0.0f, 1.0f), Random.Range (0.0f, 1.0f)) * 20, ForceMode2D.Impulse);
+
 	}
 	
 	// Update is called once per frame

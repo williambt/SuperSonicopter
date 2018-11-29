@@ -153,6 +153,17 @@ public class EnemyShip : MonoBehaviour, IShip
             ShipAudioRef.PlayFireSound();
         }
     }
+	public void Fire(Vector2 dir)
+	{
+		GameObject firedBullet = Pool.GetGameObjectFromPool();
+		GameObject playerRef = GameObject.FindGameObjectWithTag("Player");
+		if (playerRef != null)
+		{
+			Settings.Dir = dir;
+			firedBullet.GetComponent<Bullet>().Initialize(gameObject, Settings);
+			ShipAudioRef.PlayFireSound();
+		}
+	}
     private void OnEnable()
     {
     }

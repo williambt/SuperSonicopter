@@ -5,52 +5,53 @@ using UnityEngine;
 
 class ParabolaMovement : MovementType
 {
+	EnemyShip shipRef;
     public float Aperture = 0.5f;
     public float VertexOffset = 0;
     public float xOffset = 0;
-
-    void Start()
-    {
-    }
-
+	bool canFire = false;
+	void Start()
+	{
+		shipRef = GetComponent<EnemyShip>();
+		//TargetPos = GetComponentsInChildren<Transform>()[1].transform.position;
+	}
+	float Clock = 0;
+	float ShootInterval = 1.0f;
     public override void Move(Rigidbody2D rigidbody2DRef)
     {
         float y = transform.position.y;
         rigidbody2DRef.MovePosition(new Vector2(Aperture * Mathf.Pow(y, 2) + VertexOffset * y + xOffset, y - MoveSpeed * Time.deltaTime));
+		if (canFire) {
+			Clock += Time.deltaTime;
+			if (Clock >= ShootInterval)
+			{
+				Clock = 0;
+				GameObject playerref = GameObject.FindGameObjectWithTag ("Player");
+				float dot = Vector2.Dot (playerref.transform.right, (playerref.transform.position - transform.position).normalized);
+				if (dot < -0.5f ) {
+					shipRef.Fire();
+				}
+			}
+		}
     }
 
     private Vector2 GetPosition(Vector3 pos)
     {
         return new Vector2(Aperture * Mathf.Pow(pos.y, 2) + VertexOffset * pos.y + xOffset, pos.y);
     }
-
-//    void OnDrawGizmos()
-//    {
-//        if (enabled)
-//        {
-//            float yDelta = 0.25f;
-//
-//            float xpos = GetPosition(transform.position).x;
-//
-//            if (transform.position.x != xpos)
-//                transform.position = new Vector3(xpos, transform.position.y, transform.position.z);
-//
-//            if (DrawTrajectory)
-//            {
-//                Gizmos.color = Color.red;
-//
-//                float x = 0;
-//                for (float y = transform.position.y; y >= Camera.main.transform.position.y - Camera.main.orthographicSize - yDelta; y -= yDelta)
-//                {
-//                    float tempx = x;
-//                    x = GetPosition(new Vector2(0, y)).x;
-//                    if (y != transform.position.y)
-//                    {
-//                        Gizmos.DrawLine(new Vector3(tempx, y + yDelta, 0), new Vector3(x, y, 0));
-//                    }
-//                }
-//            }
-//        }
-//    }
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.tag == "Bounds")
+		{
+			canFire = false;
+		}
+	}
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Bounds")
+		{
+			canFire = true;
+		}
+	}
 }
 

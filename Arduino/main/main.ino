@@ -16,10 +16,10 @@ void setup()
 }
 void loop() 
 {
-  String fire = "nofire";
+  String fire = "0";
   if (digitalRead(firePin) == LOW)
   {
-    fire = "fire";
+    fire = "1";
   }
   
   // Clears the trigPin

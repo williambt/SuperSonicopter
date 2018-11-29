@@ -20,6 +20,7 @@ public class PlayerShip : MonoBehaviour, IShip
     [HideInInspector]
     public float offset = 1f;
     
+	public GameObject porta;
 
     [HideInInspector]
     public float lastPos = 0;
@@ -114,7 +115,7 @@ public class PlayerShip : MonoBehaviour, IShip
     {
         if (col.gameObject.GetComponent<EnemyShip>())
         {
-           TakeDamage(MaxHP/2);
+           TakeDamage(MaxHP/3);
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
@@ -133,9 +134,9 @@ public class PlayerShip : MonoBehaviour, IShip
 
     public void Explode()
     {
+		GameObject.Instantiate(porta, transform.position, transform.rotation);
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
-
         LevelManager.Instance.GameOver = true;
     }
 

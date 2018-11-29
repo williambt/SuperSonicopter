@@ -13,7 +13,7 @@ namespace ShipStates
             player = (PlayerShip)(object)Owner;
         }
         float Clock = 0;
-        float ShootInterval = 0.25f;
+        float ShootInterval = 0.1f;
         public override void Action()
         {
             if (player.lerpStartY != player.lerpTargetY)

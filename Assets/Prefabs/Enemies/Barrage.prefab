@@ -111,7 +111,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114194826250366970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,13 +137,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bullet: {fileID: 1375560547376386, guid: 1420f2d8b6b03f145b1671776f67abc1, type: 2}
   Settings:
-    DamageValue: 10
+    DamageValue: 20
     Speed: 5
     Dir: {x: -1, y: 0}
     BulletSprite: {fileID: 21300000, guid: 603cf06c0300be34cb6952ff7558c61e, type: 3}
   MaxHP: 100
   RigidbodyRef: {fileID: 0}
   Score: 100
+  dropRate: 50
 --- !u!114 &114704763371920920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,7 +175,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d346b5645ae20b244883da0c5e652e4d, type: 2}
   m_StaticBatchInfo:

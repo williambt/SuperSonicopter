@@ -56,6 +56,11 @@ class ShootAndGetOut : MovementType
         }
 
     }
+	void OnEnable()
+	{
+		HasStopped = false;
+		HasShot = false;
+	}
 
 }
 

@@ -71,9 +71,9 @@ MonoBehaviour:
   HPRecover: 0
   BulletPowerUp:
     DamageValue: 50
-    Speed: 10
+    Speed: 15
     Dir: {x: 1, y: 0}
-    BulletSprite: {fileID: 21300000, guid: f521e9ccf831fbf448367c49c0ceac5b, type: 3}
+    BulletSprite: {fileID: 21300000, guid: e6e77b7f70c0f36458f48ca4effffc1f, type: 3}
   IsHealthBooster: 0
 --- !u!212 &212968334796095986
 SpriteRenderer:
@@ -88,7 +88,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d346b5645ae20b244883da0c5e652e4d, type: 2}
   m_StaticBatchInfo:

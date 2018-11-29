@@ -29,11 +29,11 @@ public class ArduinoInput : MonoBehaviour
         Device = new wrmhlComponent(portName, baudRate, readTimeout, queueLength);
         KeyboardMode = !Device.IsConnected();
     }
+	int count = 0;
     void Update ()
     {
         if (!KeyboardMode)
         {
-            bool fireTemp = Fire;
 
             string fire = Device.Read();
             if (fire == null)
@@ -49,7 +49,7 @@ public class ArduinoInput : MonoBehaviour
             string[] a = fire.Split(delim);
 
             lastFire = Fire;
-            if (a[0] == "fire")
+            if (a[0] == "1")
             {
                 Fire = true;
             }
