@@ -30,6 +30,12 @@ public class LevelManager : MonoBehaviour
     float ButtonPressTimer = 0f;
     float CalibratePressLength = 1f;
 
+
+    public GameObject health_small;
+    public GameObject health_large;
+    public GameObject upgrade_small;
+    public GameObject upgrade_large;
+
     private void Awake()
     {
         Instance = this;

@@ -114,15 +114,18 @@ public class PlayerShip : MonoBehaviour, IShip
     {
         if (col.gameObject.GetComponent<EnemyShip>())
         {
-            HP = 0 ;
+           TakeDamage(MaxHP/2);
         }
-        PowerUp powerUp = col.gameObject.GetComponent<PowerUp>();
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        PowerUp powerUp = collision.gameObject.GetComponent<PowerUp>();
         if (powerUp != null)
         {
             PowerUp(powerUp);
+            Destroy(powerUp.gameObject);
         }
     }
-
     public bool IsDead()
     {
         return HP <= 0;

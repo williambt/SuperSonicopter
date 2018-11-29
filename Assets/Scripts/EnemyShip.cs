@@ -21,6 +21,10 @@ public class EnemyShip : MonoBehaviour, IShip
 
     public float Score;
 
+    
+
+
+
     public float HP { get; set; }
     void Start ()
     {
@@ -81,11 +85,36 @@ public class EnemyShip : MonoBehaviour, IShip
             HP = 0;
         }
     }
+
+    public float dropRate = 100;
     public void Explode()
     {
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Animator>().SetBool("Alive", false);
         ShipAudioRef.PlayExplosionSound();
+
+        float roll = Random.Range(0.0f, 1.0f);
+        if (roll <= dropRate/100 )
+        {
+            int type = Random.Range(1, 4);
+            switch (type)
+            {
+                case 1:
+                    Instantiate(LevelManager.Instance.health_small,transform.position,transform.rotation);
+                    break;
+                case 2:
+                    Instantiate(LevelManager.Instance.health_large, transform.position, transform.rotation);
+                    break;
+                case 3:
+                    Instantiate(LevelManager.Instance.upgrade_small, transform.position, transform.rotation);
+                    break;
+                case 4:
+                    Instantiate(LevelManager.Instance.upgrade_large, transform.position, transform.rotation);
+                    break;
+                default:
+                    break;
+            }
+        }
 
         LevelManager.AddScore(Score);
     }

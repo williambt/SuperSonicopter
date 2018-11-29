@@ -14,7 +14,7 @@ class StopAndShoot : MovementType
         //TargetPos = GetComponentsInChildren<Transform>()[1].transform.position;
     }
     float Clock = 0;
-    float ShootInterval = 0.5f;
+    float ShootInterval = 0.75f;
     bool HasStopped = false;
 
     public override void Move(Rigidbody2D rigidbody2DRef)
